@@ -95,14 +95,17 @@
                                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-new-account-registration">
                         <a href="#endpoints-POSTborrower-new-account-registration">Borrower Registration</a>
                     </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTproject-new-loan-proposal-submission">
+                        <a href="#endpoints-POSTproject-new-loan-proposal-submission">Proposal Submission</a>
+                    </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-GETprogram-available-list">
                         <a href="#endpoints-GETprogram-available-list">Available Program List</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="endpoints-POSTproject-check-proposal-status">
-                        <a href="#endpoints-POSTproject-check-proposal-status">Check Proposal Status</a>
-                    </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTproject-loan-proposal-agreement-url">
                         <a href="#endpoints-POSTproject-loan-proposal-agreement-url">Loan Proposal Agreement</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTproject-check-proposal-status">
+                        <a href="#endpoints-POSTproject-check-proposal-status">Check Proposal Status</a>
                     </li>
                                                     </ul>
                             </ul>
@@ -156,6 +159,18 @@
     				<a href="#relation-to-p2pl-master-data">Relation to P2PL</a>
     			</li>
     			<li class="tocify-item level-2">
+    				<a href="#business-sector-master-data">Business Sector</a>
+    			</li>
+    			<li class="tocify-item level-2">
+    				<a href="#loan-proposal-type-master-data">Loan Proposal Type</a>
+    			</li>
+    			<li class="tocify-item level-2">
+    				<a href="#loan-duration-master-data">Loan Duration</a>
+    			</li>
+    			<li class="tocify-item level-2">
+    				<a href="#repayment-method-master-data">Repayment Method</a>
+    			</li>
+    			<li class="tocify-item level-2">
     				<a href="#bank-master-data">Bank</a>
     			</li>
     			<li class="tocify-item level-2">
@@ -172,7 +187,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: February 21 2024</li>
+        <li>Last updated: February 26 2024</li>
     </ul>
 </div>
 
@@ -194,7 +209,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>Authenticate requests to this API's endpoints by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -828,6 +843,7 @@ payload = {
     "religion": 1,
     "maritalStatus": 1,
     "houseStatus": 1,
+    "totalDependent": 3,
     "motherName": "Cathy Hawkins",
     "occupation": 6,
     "occupationField": 8,
@@ -835,6 +851,7 @@ payload = {
     "workExperience": 5,
     "income": 5000000,
     "sourceOfIncome": 2,
+    "incomeFromOtherSource": 8000000,
     "relationToP2pl": 6,
     "address": "Jalan Kayu Putih No. 1725",
     "province": 31,
@@ -943,6 +960,10 @@ $response = $client-&gt;post(
                 'contents' =&gt; '1'
             ],
             [
+                'name' =&gt; 'totalDependent',
+                'contents' =&gt; '3'
+            ],
+            [
                 'name' =&gt; 'motherName',
                 'contents' =&gt; 'Cathy Hawkins'
             ],
@@ -969,6 +990,10 @@ $response = $client-&gt;post(
             [
                 'name' =&gt; 'sourceOfIncome',
                 'contents' =&gt; '2'
+            ],
+            [
+                'name' =&gt; 'incomeFromOtherSource',
+                'contents' =&gt; '8000000'
             ],
             [
                 'name' =&gt; 'relationToP2pl',
@@ -1162,6 +1187,7 @@ body.append('education', '5');
 body.append('religion', '1');
 body.append('maritalStatus', '1');
 body.append('houseStatus', '1');
+body.append('totalDependent', '3');
 body.append('motherName', 'Cathy Hawkins');
 body.append('occupation', '6');
 body.append('occupationField', '8');
@@ -1169,6 +1195,7 @@ body.append('occupationBase', '2');
 body.append('workExperience', '5');
 body.append('income', '5000000');
 body.append('sourceOfIncome', '2');
+body.append('incomeFromOtherSource', '8000000');
 body.append('relationToP2pl', '6');
 body.append('address', 'Jalan Kayu Putih No. 1725');
 body.append('province', '31');
@@ -1235,6 +1262,7 @@ fetch(url, {
     --form "religion=1" \
     --form "maritalStatus=1" \
     --form "houseStatus=1" \
+    --form "totalDependent=3" \
     --form "motherName=Cathy Hawkins" \
     --form "occupation=6" \
     --form "occupationField=8" \
@@ -1242,6 +1270,7 @@ fetch(url, {
     --form "workExperience=5" \
     --form "income=5000000" \
     --form "sourceOfIncome=2" \
+    --form "incomeFromOtherSource=8000000" \
     --form "relationToP2pl=6" \
     --form "address=Jalan Kayu Putih No. 1725" \
     --form "province=31" \
@@ -1319,20 +1348,25 @@ fetch(url, {
         &quot;gender&quot;: &quot;The gender field is required.&quot;,
         &quot;email&quot;: &quot;The email field is required.&quot;,
         &quot;phoneNumber&quot;: &quot;The phone number field is required.&quot;,
+        &quot;motherName&quot;: &quot;The mother name field is required.&quot;,
+        &quot;education&quot;: &quot;The education field is required.&quot;,
+        &quot;religion&quot;: &quot;The religion field is required.&quot;,
+        &quot;maritalStatus&quot;: &quot;The marital status field is required.&quot;,
+        &quot;houseStatus&quot;: &quot;The house status field is required.&quot;,
         &quot;occupation&quot;: &quot;The occupation field is required.&quot;,
         &quot;occupationField&quot;: &quot;The occupation field field is required.&quot;,
         &quot;occupationBase&quot;: &quot;The occupation base field is required.&quot;,
         &quot;workExperience&quot;: &quot;The work experience field is required.&quot;,
+        &quot;income&quot;: &quot;The income field is required.&quot;,
+        &quot;sourceOfIncome&quot;: &quot;The source of income field is required.&quot;,
+        &quot;relationToP2pl&quot;: &quot;The relation to p2pl field is required.&quot;,
         &quot;address&quot;: &quot;The address field is required.&quot;,
         &quot;province&quot;: &quot;The province field is required.&quot;,
         &quot;city&quot;: &quot;The city field is required.&quot;,
         &quot;district&quot;: &quot;The district field is required.&quot;,
         &quot;subdistrict&quot;: &quot;The subdistrict field is required.&quot;,
         &quot;postalCode&quot;: &quot;The postal code field is required.&quot;,
-        &quot;education&quot;: &quot;The education field is required.&quot;,
-        &quot;religion&quot;: &quot;The religion field is required.&quot;,
-        &quot;maritalStatus&quot;: &quot;The marital status field is required.&quot;,
-        &quot;motherName&quot;: &quot;The mother name field is required.&quot;,
+        &quot;selfie&quot;: &quot;The selfie field is required.&quot;,
         &quot;ktp&quot;: &quot;The ktp field is required.&quot;,
         &quot;bankId&quot;: &quot;The bank id field is required.&quot;,
         &quot;bankBranch&quot;: &quot;The bank branch field is required.&quot;,
@@ -1509,6 +1543,16 @@ fetch(url, {
 <p><b>[REQUIRED]</b> Fill with borrower house status ID; see <a href="#house-status-master-data">House Status</a> master data.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">totalDependent</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="totalDependent"
+               data-endpoint="POSTborrower-new-account-registration"
+               value="3"
+               data-component="body" hidden>
+    <br>
+<p>Fill with number of borrower's dependent.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">motherName</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="motherName"
@@ -1577,6 +1621,16 @@ fetch(url, {
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with borrower source of income ID; see <a href="#source-of-income-master-data">Source of Income</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">incomeFromOtherSource</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="incomeFromOtherSource"
+               data-endpoint="POSTborrower-new-account-registration"
+               value="8000000"
+               data-component="body" hidden>
+    <br>
+<p>Fill with the amount of borrower income from other source.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">relationToP2pl</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
@@ -1980,6 +2034,978 @@ fetch(url, {
         </p>
         </form>
 
+            <h2 id="endpoints-POSTproject-new-loan-proposal-submission">Proposal Submission</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<aside class="notice">This endpoint lets you submit borrower proposal.</aside>
+
+<span id="example-requests-POSTproject-new-loan-proposal-submission">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission'
+files = {
+  'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
+  'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\imageEC0A.jpg', 'rb'),
+  'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\imageEC0B.jpg', 'rb'),
+  'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\imageEC1C.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\imageEC1D.jpg', 'rb'),
+  'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
+}
+payload = {
+    "programId": "PRO87654321",
+    "borrowerId": "BRW123789",
+    "orderId": "ORD1234321",
+    "businessSector": 1,
+    "businessName": "Street Coffee",
+    "businessDesc": "Street Coffee menyajikan hidangan kopi dan makanan ringan bintang lima dengan harga kaki lima",
+    "businessIncomePerMonth": 300000000,
+    "businessExpensePerMonth": 150000000,
+    "businessTotalEmployee": 8,
+    "businessTotalEmployeeSalary": 40000000,
+    "businessPhysicalLocation": 1,
+    "businessAddress": "Jalan Kampung Melayu No. 175",
+    "businessProvince": 31,
+    "businessCity": 3171,
+    "businessDistrict": "Jatinegara",
+    "businessSubdistrict": "Kampung Melayu",
+    "businessPostalCode": "13320",
+    "loanProposalType": 20,
+    "loanProposalPurpose": "Modal untuk membuka gerai baru Street Coffee",
+    "loanProposalAmount": 100000000,
+    "loanDurationKey": 2,
+    "loanDurationValue": 24,
+    "loanRepaymentKey": 2,
+    "loanRepaymentValue": 4,
+    "businessPermitNo": "some SIUP number",
+    "bankId": 1012,
+    "bankBranch": "Cabang Radio Dalam",
+    "bankAccountNumber": "1234567890",
+    "bankAccountName": "Zakk Valdez",
+    "hasOtherRefinancing": 1,
+    "refinancingInstitution": "BFI",
+    "refinancingAmount": 50000000,
+    "refinancingDueDate": "2024-10-15",
+    "supplementaryDocumentUrl": "https:\/\/unec.edu.az\/application\/uploads\/2014\/12\/pdf-sample.pdf"
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'multipart/form-data'
+}
+
+response = requests.request('POST', url, headers=headers, files=files, data=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'multipart/form-data',
+        ],
+        'multipart' =&gt; [
+            [
+                'name' =&gt; 'programId',
+                'contents' =&gt; 'PRO87654321'
+            ],
+            [
+                'name' =&gt; 'borrowerId',
+                'contents' =&gt; 'BRW123789'
+            ],
+            [
+                'name' =&gt; 'orderId',
+                'contents' =&gt; 'ORD1234321'
+            ],
+            [
+                'name' =&gt; 'businessSector',
+                'contents' =&gt; '1'
+            ],
+            [
+                'name' =&gt; 'businessName',
+                'contents' =&gt; 'Street Coffee'
+            ],
+            [
+                'name' =&gt; 'businessDesc',
+                'contents' =&gt; 'Street Coffee menyajikan hidangan kopi dan makanan ringan bintang lima dengan harga kaki lima'
+            ],
+            [
+                'name' =&gt; 'businessIncomePerMonth',
+                'contents' =&gt; '300000000'
+            ],
+            [
+                'name' =&gt; 'businessExpensePerMonth',
+                'contents' =&gt; '150000000'
+            ],
+            [
+                'name' =&gt; 'businessTotalEmployee',
+                'contents' =&gt; '8'
+            ],
+            [
+                'name' =&gt; 'businessTotalEmployeeSalary',
+                'contents' =&gt; '40000000'
+            ],
+            [
+                'name' =&gt; 'businessPhysicalLocation',
+                'contents' =&gt; '1'
+            ],
+            [
+                'name' =&gt; 'businessAddress',
+                'contents' =&gt; 'Jalan Kampung Melayu No. 175'
+            ],
+            [
+                'name' =&gt; 'businessProvince',
+                'contents' =&gt; '31'
+            ],
+            [
+                'name' =&gt; 'businessCity',
+                'contents' =&gt; '3171'
+            ],
+            [
+                'name' =&gt; 'businessDistrict',
+                'contents' =&gt; 'Jatinegara'
+            ],
+            [
+                'name' =&gt; 'businessSubdistrict',
+                'contents' =&gt; 'Kampung Melayu'
+            ],
+            [
+                'name' =&gt; 'businessPostalCode',
+                'contents' =&gt; '13320'
+            ],
+            [
+                'name' =&gt; 'loanProposalType',
+                'contents' =&gt; '20'
+            ],
+            [
+                'name' =&gt; 'loanProposalPurpose',
+                'contents' =&gt; 'Modal untuk membuka gerai baru Street Coffee'
+            ],
+            [
+                'name' =&gt; 'loanProposalAmount',
+                'contents' =&gt; '100000000'
+            ],
+            [
+                'name' =&gt; 'loanDurationKey',
+                'contents' =&gt; '2'
+            ],
+            [
+                'name' =&gt; 'loanDurationValue',
+                'contents' =&gt; '24'
+            ],
+            [
+                'name' =&gt; 'loanRepaymentKey',
+                'contents' =&gt; '2'
+            ],
+            [
+                'name' =&gt; 'loanRepaymentValue',
+                'contents' =&gt; '4'
+            ],
+            [
+                'name' =&gt; 'businessPermitNo',
+                'contents' =&gt; 'some SIUP number'
+            ],
+            [
+                'name' =&gt; 'bankId',
+                'contents' =&gt; '1012'
+            ],
+            [
+                'name' =&gt; 'bankBranch',
+                'contents' =&gt; 'Cabang Radio Dalam'
+            ],
+            [
+                'name' =&gt; 'bankAccountNumber',
+                'contents' =&gt; '1234567890'
+            ],
+            [
+                'name' =&gt; 'bankAccountName',
+                'contents' =&gt; 'Zakk Valdez'
+            ],
+            [
+                'name' =&gt; 'hasOtherRefinancing',
+                'contents' =&gt; '1'
+            ],
+            [
+                'name' =&gt; 'refinancingInstitution',
+                'contents' =&gt; 'BFI'
+            ],
+            [
+                'name' =&gt; 'refinancingAmount',
+                'contents' =&gt; '50000000'
+            ],
+            [
+                'name' =&gt; 'refinancingDueDate',
+                'contents' =&gt; '2024-10-15'
+            ],
+            [
+                'name' =&gt; 'supplementaryDocumentUrl',
+                'contents' =&gt; 'https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf'
+            ],
+            [
+                'name' =&gt; 'businessPhoto1',
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_1.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessPhoto2',
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_2.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessPhoto[]',
+                'contents' =&gt; fopen('C:\Users\Download\imageEC0A.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessPermit',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessDeed[]',
+                'contents' =&gt; fopen('C:\Users\Download\imageEC0B.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessRegistered',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessDomicile',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessNPWP',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessBankStatement[]',
+                'contents' =&gt; fopen('C:\Users\Download\imageEC1C.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessOwnerKTP[]',
+                'contents' =&gt; fopen('C:\Users\Download\imageEC1D.jpg', 'r')
+            ],
+            [
+                'name' =&gt; 'businessFinancialStatement',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessCollateralOwnership',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+            [
+                'name' =&gt; 'businessCopyOfCollateralOwnership',
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "multipart/form-data",
+    "Accept": "application/json",
+};
+
+const body = new FormData();
+body.append('programId', 'PRO87654321');
+body.append('borrowerId', 'BRW123789');
+body.append('orderId', 'ORD1234321');
+body.append('businessSector', '1');
+body.append('businessName', 'Street Coffee');
+body.append('businessDesc', 'Street Coffee menyajikan hidangan kopi dan makanan ringan bintang lima dengan harga kaki lima');
+body.append('businessIncomePerMonth', '300000000');
+body.append('businessExpensePerMonth', '150000000');
+body.append('businessTotalEmployee', '8');
+body.append('businessTotalEmployeeSalary', '40000000');
+body.append('businessPhysicalLocation', '1');
+body.append('businessAddress', 'Jalan Kampung Melayu No. 175');
+body.append('businessProvince', '31');
+body.append('businessCity', '3171');
+body.append('businessDistrict', 'Jatinegara');
+body.append('businessSubdistrict', 'Kampung Melayu');
+body.append('businessPostalCode', '13320');
+body.append('loanProposalType', '20');
+body.append('loanProposalPurpose', 'Modal untuk membuka gerai baru Street Coffee');
+body.append('loanProposalAmount', '100000000');
+body.append('loanDurationKey', '2');
+body.append('loanDurationValue', '24');
+body.append('loanRepaymentKey', '2');
+body.append('loanRepaymentValue', '4');
+body.append('businessPermitNo', 'some SIUP number');
+body.append('bankId', '1012');
+body.append('bankBranch', 'Cabang Radio Dalam');
+body.append('bankAccountNumber', '1234567890');
+body.append('bankAccountName', 'Zakk Valdez');
+body.append('hasOtherRefinancing', '1');
+body.append('refinancingInstitution', 'BFI');
+body.append('refinancingAmount', '50000000');
+body.append('refinancingDueDate', '2024-10-15');
+body.append('supplementaryDocumentUrl', 'https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf');
+body.append('businessPhoto1', document.querySelector('input[name="businessPhoto1"]').files[0]);
+body.append('businessPhoto2', document.querySelector('input[name="businessPhoto2"]').files[0]);
+body.append('businessPhoto[]', document.querySelector('input[name="businessPhoto[]"]').files[0]);
+body.append('businessPermit', document.querySelector('input[name="businessPermit"]').files[0]);
+body.append('businessDeed[]', document.querySelector('input[name="businessDeed[]"]').files[0]);
+body.append('businessRegistered', document.querySelector('input[name="businessRegistered"]').files[0]);
+body.append('businessDomicile', document.querySelector('input[name="businessDomicile"]').files[0]);
+body.append('businessNPWP', document.querySelector('input[name="businessNPWP"]').files[0]);
+body.append('businessBankStatement[]', document.querySelector('input[name="businessBankStatement[]"]').files[0]);
+body.append('businessOwnerKTP[]', document.querySelector('input[name="businessOwnerKTP[]"]').files[0]);
+body.append('businessFinancialStatement', document.querySelector('input[name="businessFinancialStatement"]').files[0]);
+body.append('businessCollateralOwnership', document.querySelector('input[name="businessCollateralOwnership"]').files[0]);
+body.append('businessCopyOfCollateralOwnership', document.querySelector('input[name="businessCopyOfCollateralOwnership"]').files[0]);
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body,
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: multipart/form-data" \
+    --form "programId=PRO87654321" \
+    --form "borrowerId=BRW123789" \
+    --form "orderId=ORD1234321" \
+    --form "businessSector=1" \
+    --form "businessName=Street Coffee" \
+    --form "businessDesc=Street Coffee menyajikan hidangan kopi dan makanan ringan bintang lima dengan harga kaki lima" \
+    --form "businessIncomePerMonth=300000000" \
+    --form "businessExpensePerMonth=150000000" \
+    --form "businessTotalEmployee=8" \
+    --form "businessTotalEmployeeSalary=40000000" \
+    --form "businessPhysicalLocation=1" \
+    --form "businessAddress=Jalan Kampung Melayu No. 175" \
+    --form "businessProvince=31" \
+    --form "businessCity=3171" \
+    --form "businessDistrict=Jatinegara" \
+    --form "businessSubdistrict=Kampung Melayu" \
+    --form "businessPostalCode=13320" \
+    --form "loanProposalType=20" \
+    --form "loanProposalPurpose=Modal untuk membuka gerai baru Street Coffee" \
+    --form "loanProposalAmount=100000000" \
+    --form "loanDurationKey=2" \
+    --form "loanDurationValue=24" \
+    --form "loanRepaymentKey=2" \
+    --form "loanRepaymentValue=4" \
+    --form "businessPermitNo=some SIUP number" \
+    --form "bankId=1012" \
+    --form "bankBranch=Cabang Radio Dalam" \
+    --form "bankAccountNumber=1234567890" \
+    --form "bankAccountName=Zakk Valdez" \
+    --form "hasOtherRefinancing=1" \
+    --form "refinancingInstitution=BFI" \
+    --form "refinancingAmount=50000000" \
+    --form "refinancingDueDate=2024-10-15" \
+    --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
+    --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
+    --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\imageEC0A.jpg" \
+    --form "businessPermit=@C:\Users\Download\img\image_example.png" \
+    --form "businessDeed[]=@C:\Users\Download\imageEC0B.jpg" \
+    --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
+    --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
+    --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
+    --form "businessBankStatement[]=@C:\Users\Download\imageEC1C.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\imageEC1D.jpg" \
+    --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
+    --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
+    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTproject-new-loan-proposal-submission">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;Loan proposal submitted successfully!&quot;,
+    &quot;results&quot;: {
+        &quot;programId&quot;: &quot;PRG87654321&quot;,
+        &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+        &quot;orderId&quot;: &quot;ORD1234321&quot;,
+        &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+        &quot;proposalIdGT&quot;: &quot;PRO224466880011&quot;,
+        &quot;status&quot;: &quot;CREATED&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 400,
+    &quot;description&quot;: &quot;Fail to submit loan proposal!&quot;,
+    &quot;results&quot;: {
+        &quot;programId&quot;: &quot;The program id field is required.&quot;,
+        &quot;businessSector&quot;: &quot;The business sector field is required.&quot;,
+        &quot;businessName&quot;: &quot;The business name field is required.&quot;,
+        &quot;businessDesc&quot;: &quot;The business desc field is required.&quot;,
+        &quot;businessIncomePerMonth&quot;: &quot;The business income per month field is required.&quot;,
+        &quot;businessExpensePerMonth&quot;: &quot;The business expense per month field is required.&quot;,
+        &quot;businessPhysicalLocation&quot;: &quot;The business physical location field is required.&quot;,
+        &quot;businessPhoto1&quot;: &quot;The business photo1 field is required.&quot;,
+        &quot;businessPhoto2&quot;: &quot;The business photo2 field is required.&quot;,
+        &quot;loanProposalType&quot;: &quot;The loan proposal type field is required.&quot;,
+        &quot;loanProposalPurpose&quot;: &quot;The loan proposal purpose field is required.&quot;,
+        &quot;loanProposalAmount&quot;: &quot;The loan proposal amount field is required.&quot;,
+        &quot;loanDurationKey&quot;: &quot;The loan duration key field is required.&quot;,
+        &quot;loanDurationValue&quot;: &quot;The loan duration value field is required.&quot;,
+        &quot;loanRepaymentKey&quot;: &quot;The loan repayment key field is required.&quot;,
+        &quot;loanRepaymentValue&quot;: &quot;The loan repayment value field is required.&quot;,
+        &quot;hasAnotherRefinancing&quot;: &quot;The has another refinancing field is required.&quot;
+    },
+    &quot;errorMesage&quot;: &quot;Invalid input!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTproject-new-loan-proposal-submission" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTproject-new-loan-proposal-submission"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTproject-new-loan-proposal-submission"></code></pre>
+</span>
+<span id="execution-error-POSTproject-new-loan-proposal-submission" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTproject-new-loan-proposal-submission"></code></pre>
+</span>
+<form id="form-POSTproject-new-loan-proposal-submission" data-method="POST"
+      data-path="project/new-loan-proposal-submission"
+      data-authed="1"
+      data-hasfiles="1"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"multipart\/form-data"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTproject-new-loan-proposal-submission', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>project/new-loan-proposal-submission</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTproject-new-loan-proposal-submission" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTproject-new-loan-proposal-submission"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">programId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="programId"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="PRO87654321"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with program ID; see <a href="#endpoints-GETprogram-available-list">Available Program List</a> endpoint.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="borrowerId"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="BRW123789"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">orderId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="orderId"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="ORD1234321"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your proposal order ID; must be unique and can only be used once.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessSector</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="businessSector"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="1"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with borrower business sector ID; see <a href="#business-sector-master-data">Business Sector</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessName</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="businessName"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Street Coffee"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with borrower business name.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessDesc</code></b>&nbsp;&nbsp;<small>text</small>  &nbsp;
+                <input type="text"
+               name="businessDesc"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Street Coffee menyajikan hidangan kopi dan makanan ringan bintang lima dengan harga kaki lima"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with borrower business description.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessIncomePerMonth</code></b>&nbsp;&nbsp;<small>number</small>  &nbsp;
+                <input type="number"
+               name="businessIncomePerMonth"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="300000000"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with business income per month.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessExpensePerMonth</code></b>&nbsp;&nbsp;<small>number</small>  &nbsp;
+                <input type="number"
+               name="businessExpensePerMonth"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="150000000"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with business expense per month.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessTotalEmployee</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="businessTotalEmployee"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="8"
+               data-component="body" hidden>
+    <br>
+<p>Fill with total employee of borrower business.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessTotalEmployeeSalary</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="businessTotalEmployeeSalary"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="40000000"
+               data-component="body" hidden>
+    <br>
+<p>Fill with total employee salary of borrower business.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPhysicalLocation</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="businessPhysicalLocation"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="1"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with 0 (there is no business physical location) or 1 (there is business physical location) of the borrower business; must be in: 0,1.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessAddress</code></b>&nbsp;&nbsp;<small>text</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="businessAddress"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Jalan Kampung Melayu No. 175"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessProvince</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="businessProvince"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="31"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address province ID; see <a href="#province-master-data">Province</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessCity</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="businessCity"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="3171"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address city ID; see <a href="#city-master-data">City</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessDistrict</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="businessDistrict"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Jatinegara"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address district (kecamatan).</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessSubdistrict</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="businessSubdistrict"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Kampung Melayu"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address subdistrict (kelurahan).</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPostalCode</code></b>&nbsp;&nbsp;<small>digits_between:5,5</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="businessPostalCode"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="13320"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> businessPhysicalLocation = 1. Fill with borrower business address postal code.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPhoto1</code></b>&nbsp;&nbsp;<small>file</small>  &nbsp;
+                <input type="file"
+               name="businessPhoto1"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with borrower business photo; mimes jpg,png,jpeg; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPhoto2</code></b>&nbsp;&nbsp;<small>file</small>  &nbsp;
+                <input type="file"
+               name="businessPhoto2"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with borrower business photo; mimes jpg,png,jpeg; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPhoto</code></b>&nbsp;&nbsp;<small>file[]</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessPhoto[0]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+        <input type="file"
+               name="businessPhoto[1]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+    <br>
+<p>Fill with more of borrower business photo; mimes jpg,png,jpeg; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanProposalType</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="loanProposalType"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="20"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with the type of loan proposal; see <a href="#loan-proposal-type-master-data">Loan Proposal Type</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanProposalPurpose</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="loanProposalPurpose"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Modal untuk membuka gerai baru Street Coffee"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with the purpose of loan proposal.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanProposalAmount</code></b>&nbsp;&nbsp;<small>number</small>  &nbsp;
+                <input type="number"
+               name="loanProposalAmount"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="100000000"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with the amount of loan proposal.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanDurationKey</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="loanDurationKey"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="2"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with loan duration key; see <a href="#loan-duration-master-data">Loan Duration</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanDurationValue</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="loanDurationValue"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="24"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with loan duration value; see <a href="#loan-duration-master-data">Loan Duration</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentKey</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="loanRepaymentKey"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="2"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with loan repayment key; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentValue</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="loanRepaymentValue"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="4"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with loan repayment value; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPermitNo</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="businessPermitNo"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="some SIUP number"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with borrower business permit number.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPermit</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessPermit"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business permit; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessDeed</code></b>&nbsp;&nbsp;<small>file[]</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessDeed[0]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+        <input type="file"
+               name="businessDeed[1]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business deed; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessRegistered</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessRegistered"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with certificate of business registration; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessDomicile</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessDomicile"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business domicile; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessNPWP</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessNPWP"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with image of business NPWP; mimes jpg,png,jpeg; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessBankStatement</code></b>&nbsp;&nbsp;<small>file[]</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessBankStatement[0]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+        <input type="file"
+               name="businessBankStatement[1]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business bank statement; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessOwnerKTP</code></b>&nbsp;&nbsp;<small>file[]</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessOwnerKTP[0]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+        <input type="file"
+               name="businessOwnerKTP[1]"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with image of business owner KTP; mimes jpg,png,jpeg; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessFinancialStatement</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessFinancialStatement"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business financial statement; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessCollateralOwnership</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessCollateralOwnership"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with document of business collateral ownership; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessCopyOfCollateralOwnership</code></b>&nbsp;&nbsp;<small>file</small>     <i>optional</i> &nbsp;
+                <input type="file"
+               name="businessCopyOfCollateralOwnership"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> loanProposalAmount &gt; Rp 25.000.000. Fill with copy of business collateral ownership; mimes jpg,png,jpeg,pdf; max 5MB per file.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">bankId</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="bankId"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="1012"
+               data-component="body" hidden>
+    <br>
+<p>Fill with bank ID; see <a href="#bank-master-data">Bank</a> master data.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">bankBranch</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="bankBranch"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Cabang Radio Dalam"
+               data-component="body" hidden>
+    <br>
+<p>Fill with bank account branch.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">bankAccountNumber</code></b>&nbsp;&nbsp;<small>digits</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="bankAccountNumber"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="1234567890"
+               data-component="body" hidden>
+    <br>
+<p>Fill with bank account number.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">bankAccountName</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="bankAccountName"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="Zakk Valdez"
+               data-component="body" hidden>
+    <br>
+<p>Fill with bank account name.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">hasOtherRefinancing</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="hasOtherRefinancing"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="1"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with 0 (borrower doesn't have other refinancing) or 1 (borrower has other refinancing); must be in: 0,1.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">refinancingInstitution</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="refinancingInstitution"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="BFI"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> hasOtherRefinancing = 1. Fill with refinancing institution name.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">refinancingAmount</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="refinancingAmount"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="50000000"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> hasOtherRefinancing = 1. Fill with the amount of borrower refinancing.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">refinancingDueDate</code></b>&nbsp;&nbsp;<small>date_format:Y-m-d</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="refinancingDueDate"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="2024-10-15"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED IF]</b> hasOtherRefinancing = 1. Fill with due date of borrower refinancing.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">supplementaryDocumentUrl</code></b>&nbsp;&nbsp;<small>text</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="supplementaryDocumentUrl"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
+               data-component="body" hidden>
+    <br>
+<p>Fill with supplementary/complementary/additional document URL; must be an active and downloadable URL.</p>
+        </p>
+        </form>
+
             <h2 id="endpoints-GETprogram-available-list">Available Program List</h2>
 
 <p>
@@ -2143,6 +3169,213 @@ fetch(url, {
                                                                 data-component="header"></label>
         </p>
                 </form>
+
+            <h2 id="endpoints-POSTproject-loan-proposal-agreement-url">Loan Proposal Agreement</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<aside class="notice">This endpoint lets you send loan proposal agreement URL.</aside>
+
+<span id="example-requests-POSTproject-loan-proposal-agreement-url">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url'
+payload = {
+    "proposals": [
+        {
+            "orderId": "ORD1234321",
+            "agreementUrl": "https:\/\/unec.edu.az\/application\/uploads\/2014\/12\/pdf-sample.pdf"
+        }
+    ]
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'proposals' =&gt; [
+                [
+                    'orderId' =&gt; 'ORD1234321',
+                    'agreementUrl' =&gt; 'https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf',
+                ],
+            ],
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "proposals": [
+        {
+            "orderId": "ORD1234321",
+            "agreementUrl": "https:\/\/unec.edu.az\/application\/uploads\/2014\/12\/pdf-sample.pdf"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --data "{
+    \"proposals\": [
+        {
+            \"orderId\": \"ORD1234321\",
+            \"agreementUrl\": \"https:\\/\\/unec.edu.az\\/application\\/uploads\\/2014\\/12\\/pdf-sample.pdf\"
+        }
+    ]
+}"
+</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTproject-loan-proposal-agreement-url">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;Successfully send proposal agreement URL!&quot;,
+    &quot;results&quot;: {
+        &quot;proposals&quot;: [
+            {
+                &quot;orderId&quot;: &quot;ORD1234321&quot;,
+                &quot;agreementUrl&quot;: &quot;https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf&quot;
+            },
+            {
+                &quot;orderId&quot;: &quot;ORD6789876&quot;,
+                &quot;agreementUrl&quot;: &quot;https://www.africau.edu/images/default/sample.pdf&quot;
+            }
+        ]
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 400,
+    &quot;description&quot;: &quot;Fail to send proposal agreement URL!&quot;,
+    &quot;results&quot;: {
+        &quot;proposals.0.orderId&quot;: &quot;The selected proposals.0.orderId is invalid.&quot;,
+        &quot;proposals.0.agreementUrl&quot;: &quot;The proposals.0.agreementUrl is not a valid URL.&quot;,
+        &quot;proposals.2.orderId&quot;: &quot;The selected proposals.2.orderId is invalid.&quot;,
+        &quot;proposals.2.agreementUrl&quot;: &quot;The proposals.2.agreementUrl field is required.&quot;
+    },
+    &quot;errorMesage&quot;: &quot;Invalid input!&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTproject-loan-proposal-agreement-url" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTproject-loan-proposal-agreement-url"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTproject-loan-proposal-agreement-url"></code></pre>
+</span>
+<span id="execution-error-POSTproject-loan-proposal-agreement-url" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTproject-loan-proposal-agreement-url"></code></pre>
+</span>
+<form id="form-POSTproject-loan-proposal-agreement-url" data-method="POST"
+      data-path="project/loan-proposal-agreement-url"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTproject-loan-proposal-agreement-url', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>project/loan-proposal-agreement-url</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTproject-loan-proposal-agreement-url" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTproject-loan-proposal-agreement-url"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+        <details>
+            <summary style="background-color: #ddd; padding-left: 10px;">
+                <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
+<br>
+<p><b>[REQUIRED]</b> Fill with list of proposals agreement.</p>
+            </summary>
+                                                <p style="margin-top: 20px; margin-bottom: 0px; background-color: #ddd;">
+                        <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals[].orderId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="proposals.0.orderId"
+               data-endpoint="POSTproject-loan-proposal-agreement-url"
+               value="ORD1234321"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
+                    </p>
+                                                                <p style="margin-top: 20px; margin-bottom: 0px; background-color: #ddd;">
+                        <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals[].agreementUrl</code></b>&nbsp;&nbsp;<small>text</small>  &nbsp;
+                <input type="text"
+               name="proposals.0.agreementUrl"
+               data-endpoint="POSTproject-loan-proposal-agreement-url"
+               value="https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
+                    </p>
+                                    </details>
+        </p>
+        </form>
 
             <h2 id="endpoints-POSTproject-check-proposal-status">Check Proposal Status</h2>
 
@@ -2376,213 +3609,6 @@ fetch(url, {
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with an array of your proposal order ID.</p>
-        </p>
-        </form>
-
-            <h2 id="endpoints-POSTproject-loan-proposal-agreement-url">Loan Proposal Agreement</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-<aside class="notice">This endpoint lets you send loan proposal agreement URL.</aside>
-
-<span id="example-requests-POSTproject-loan-proposal-agreement-url">
-<blockquote>Example request:</blockquote>
-
-
-<div class="python-example">
-    <pre><code class="language-python">import requests
-import json
-
-url = 'http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url'
-payload = {
-    "proposals": [
-        {
-            "orderId": "ORD1234321",
-            "agreementUrl": "https:\/\/unec.edu.az\/application\/uploads\/2014\/12\/pdf-sample.pdf"
-        }
-    ]
-}
-headers = {
-  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
-  'Content-Type': 'application/json'
-}
-
-response = requests.request('POST', url, headers=headers, json=payload)
-response.json()</code></pre></div>
-
-
-<div class="php-example">
-    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
-$response = $client-&gt;post(
-    'http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url',
-    [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
-            'Content-Type' =&gt; 'application/json',
-        ],
-        'json' =&gt; [
-            'proposals' =&gt; [
-                [
-                    'orderId' =&gt; 'ORD1234321',
-                    'agreementUrl' =&gt; 'https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf',
-                ],
-            ],
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url"
-);
-
-const headers = {
-    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "proposals": [
-        {
-            "orderId": "ORD1234321",
-            "agreementUrl": "https:\/\/unec.edu.az\/application\/uploads\/2014\/12\/pdf-sample.pdf"
-        }
-    ]
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://dev-api-partnership.gandengtangan.com/project/loan-proposal-agreement-url" \
-    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
-    --header "Content-Type: application/json" \
-    --data "{
-    \"proposals\": [
-        {
-            \"orderId\": \"ORD1234321\",
-            \"agreementUrl\": \"https:\\/\\/unec.edu.az\\/application\\/uploads\\/2014\\/12\\/pdf-sample.pdf\"
-        }
-    ]
-}"
-</code></pre></div>
-
-</span>
-
-<span id="example-responses-POSTproject-loan-proposal-agreement-url">
-            <blockquote>
-            <p>Example response (200, success):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;code&quot;: 200,
-    &quot;description&quot;: &quot;Successfully send proposal agreement URL!&quot;,
-    &quot;results&quot;: {
-        &quot;proposals&quot;: [
-            {
-                &quot;orderId&quot;: &quot;ORD1234321&quot;,
-                &quot;agreementUrl&quot;: &quot;https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf&quot;
-            },
-            {
-                &quot;orderId&quot;: &quot;ORD6789876&quot;,
-                &quot;agreementUrl&quot;: &quot;https://www.africau.edu/images/default/sample.pdf&quot;
-            }
-        ]
-    }
-}</code>
- </pre>
-            <blockquote>
-            <p>Example response (400, failed):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;code&quot;: 400,
-    &quot;description&quot;: &quot;Fail to send proposal agreement URL!&quot;,
-    &quot;results&quot;: {
-        &quot;proposals.0.orderId&quot;: &quot;The selected proposals.0.orderId is invalid.&quot;,
-        &quot;proposals.0.agreementUrl&quot;: &quot;The proposals.0.agreementUrl is not a valid URL.&quot;,
-        &quot;proposals.2.orderId&quot;: &quot;The selected proposals.2.orderId is invalid.&quot;,
-        &quot;proposals.2.agreementUrl&quot;: &quot;The proposals.2.agreementUrl field is required.&quot;
-    },
-    &quot;errorMesage&quot;: &quot;Invalid input!&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-POSTproject-loan-proposal-agreement-url" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTproject-loan-proposal-agreement-url"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTproject-loan-proposal-agreement-url"></code></pre>
-</span>
-<span id="execution-error-POSTproject-loan-proposal-agreement-url" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTproject-loan-proposal-agreement-url"></code></pre>
-</span>
-<form id="form-POSTproject-loan-proposal-agreement-url" data-method="POST"
-      data-path="project/loan-proposal-agreement-url"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTproject-loan-proposal-agreement-url', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>project/loan-proposal-agreement-url</code></b>
-        </p>
-                <p>
-            <label id="auth-POSTproject-loan-proposal-agreement-url" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="POSTproject-loan-proposal-agreement-url"
-                                                                data-component="header"></label>
-        </p>
-                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p style="margin-top: 20px; margin-bottom: 0px;">
-        <details>
-            <summary style="background-color: #ddd; padding-left: 10px;">
-                <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals</code></b>&nbsp;&nbsp;<small>object[]</small>  &nbsp;
-<br>
-<p><b>[REQUIRED]</b> Fill with list of proposals agreement.</p>
-            </summary>
-                                                <p style="margin-top: 20px; margin-bottom: 0px; background-color: #ddd;">
-                        <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals[].orderId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-                <input type="text"
-               name="proposals.0.orderId"
-               data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="ORD1234321"
-               data-component="body" hidden>
-    <br>
-<p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
-                    </p>
-                                                                <p style="margin-top: 20px; margin-bottom: 0px; background-color: #ddd;">
-                        <b><code style="font-size: 16px; color: #000077; padding: 0px;">proposals[].agreementUrl</code></b>&nbsp;&nbsp;<small>text</small>  &nbsp;
-                <input type="text"
-               name="proposals.0.agreementUrl"
-               data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf"
-               data-component="body" hidden>
-    <br>
-<p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
-                    </p>
-                                    </details>
         </p>
         </form>
 
@@ -3631,6 +4657,546 @@ fetch(url, {
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">6</td>
                     <td style="padding: 1px 10px;">Not Related to P2PL</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2 id="business-sector-master-data">Business Sector</h2>
+		
+		<table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>ID</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                	<td style="padding: 1px 10px;">1</td>
+                	<td style="padding: 1px 10px;">Consumptive</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Agriculture, Hunting and Forestry</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Fishery</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">Mining and Excavation</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">5</td>
+                    <td style="padding: 1px 10px;">Processing Industry</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">Electricity, Gas, and Water</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">7</td>
+                    <td style="padding: 1px 10px;">Construction</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">8</td>
+                    <td style="padding: 1px 10px;">Wholesale and Retail Trade</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">9</td>
+                    <td style="padding: 1px 10px;">Provision of Accommodation and Provision of Food & Drink</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">10</td>
+                    <td style="padding: 1px 10px;">Transportation, Warehousing, and Communication</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">11</td>
+                    <td style="padding: 1px 10px;">Financial Agency</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">Real Estate, Rental Business, and Corporate Services</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">13</td>
+                    <td style="padding: 1px 10px;">Government Administration, Defense and Mandatory Social Security</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">14</td>
+                    <td style="padding: 1px 10px;">Education Services</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">15</td>
+                    <td style="padding: 1px 10px;">Health Services and Social Activities</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">16</td>
+                    <td style="padding: 1px 10px;">Organizational Activities Not Classified Elsewhere</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">17</td>
+                    <td style="padding: 1px 10px;">Individual Services Serving Households</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">18</td>
+                    <td style="padding: 1px 10px;">International Agencies and Other Extra International Agencies</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">19</td>
+                    <td style="padding: 1px 10px;">Activities that Have No Clear Boundaries</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                	<td style="padding: 1px 10px;">20</td>
+                	<td style="padding: 1px 10px;">Economic Sector that is not a Business Field</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                	<td style="padding: 1px 10px;">21</td>
+                	<td style="padding: 1px 10px;">Household</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                	<td style="padding: 1px 10px;">22</td>
+                	<td style="padding: 1px 10px;">Not Any Other Business Fields</td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        <h2 id="loan-proposal-type-master-data">Loan Proposal Type</h2>
+		
+		<table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>ID</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">10</td>
+                    <td style="padding: 1px 10px;">Invoice Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">11</td>
+                    <td style="padding: 1px 10px;">Offline Buyer/Inventory Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">Online-Merchant Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">13</td>
+                    <td style="padding: 1px 10px;">Agriculture Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">14</td>
+                    <td style="padding: 1px 10px;">Livestock Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">15</td>
+                    <td style="padding: 1px 10px;">Fishery Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">16</td>
+                    <td style="padding: 1px 10px;">Education Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">17</td>
+                    <td style="padding: 1px 10px;">Property Financing</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">18</td>
+                    <td style="padding: 1px 10px;">Group Lending</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">19</td>
+                    <td style="padding: 1px 10px;">Others</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">20</td>
+                    <td style="padding: 1px 10px;">Onetime Loan/Cash Loan</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">21</td>
+                    <td style="padding: 1px 10px;">Paylater/Line Of Credit</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2 id="loan-duration-master-data">Loan Duration</h2>
+        
+        <p>The following is a list of available loan durations that can be proposed. 
+        For example, if you want to submit a loan proposal with loan duration of 12 weeks, 
+        then you may choose Key: 2 and Value: 12</p>
+        
+        <ul>
+        	<li>If Loan Duration is in Daily, then Repayment Method must in Daily.</li>
+        	<li>If Loan Duration is in Weekly, then Repayment Method must in Weekly.</li>
+        	<li>If Loan Duration is in Monthly, then Repayment Method must in Monthly.</li>
+    	</ul>
+		
+		<table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>Key</th>
+                	<th>Type</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">7</td>
+                    <td style="padding: 1px 10px;">7 Days</td>
+                </tr>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">28</td>
+                    <td style="padding: 1px 10px;">28 Days</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">30</td>
+                    <td style="padding: 1px 10px;">30 Days</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">60</td>
+                    <td style="padding: 1px 10px;">60 Days</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">90</td>
+                    <td style="padding: 1px 10px;">90 Days</td>
+                </tr>
+                
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">1 Week</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">2 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">3 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">4 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">5</td>
+                    <td style="padding: 1px 10px;">5 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">6 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">7</td>
+                    <td style="padding: 1px 10px;">7 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">8</td>
+                    <td style="padding: 1px 10px;">8 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">12 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">16</td>
+                    <td style="padding: 1px 10px;">16 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">24</td>
+                    <td style="padding: 1px 10px;">24 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">48</td>
+                    <td style="padding: 1px 10px;">48 Weeks</td>
+                </tr>
+                
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">1 Month</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">2 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">3 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">4 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">5</td>
+                    <td style="padding: 1px 10px;">5 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">6 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">9</td>
+                    <td style="padding: 1px 10px;">9 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">10</td>
+                    <td style="padding: 1px 10px;">10 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">12 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">13</td>
+                    <td style="padding: 1px 10px;">13 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">18</td>
+                    <td style="padding: 1px 10px;">18 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">24</td>
+                    <td style="padding: 1px 10px;">24 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">48</td>
+                    <td style="padding: 1px 10px;">48 Months</td>
+                </tr>
+            </tbody>
+        </table>
+		
+		<h2 id="repayment-method-master-data">Repayment Method</h2>
+		
+		<p>The following is a list of available repayment methods that can be used. 
+		For example, if loan duration is 12 weeks, 
+		then these are the available repayment methods for the loan:</p>
+		
+		<ul>
+			<li><b>1x repayment</b>, borrower will repay this loan within 12 weeks, then you may choose Key: 2 and Duration: 12.</li>
+			<li><b>2x repayments</b>, borrower will repay this loan every 6 weeks, then you may choose Key: 2 and Duration: 6.</li>
+			<li><b>3x repayments</b>, borrower will repay this loan every 4 weeks, then you may choose Key: 2 and Duration: 4.</li>
+			<li><b>4x repayments</b>, borrower will repay this loan every 3 weeks, then you may choose Key: 2 and Duration: 3.</li>
+			<li><b>6x repayments</b>, borrower will repay this loan every 2 weeks, then you may choose Key: 2 and Duration: 2.</li>
+			<li><b>12x repayments</b>, borrower will repay this loan every week, then you may choose Key: 2 and Duration: 1.</li>
+		</ul>
+		
+		<p>NOTE: Repayment Method cannot be greater than Loan Duration.</p>
+		
+		<table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>Key</th>
+                	<th>Type</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">1 Day</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">7</td>
+                    <td style="padding: 1px 10px;">7 Day</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">28</td>
+                    <td style="padding: 1px 10px;">28 Day</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">30</td>
+                    <td style="padding: 1px 10px;">30 Days</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">60</td>
+                    <td style="padding: 1px 10px;">60 Days</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Daily</td>
+                    <td style="padding: 1px 10px;">90</td>
+                    <td style="padding: 1px 10px;">90 Days</td>
+                </tr>
+                
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">1 Week</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">2 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">3 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">4 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">5</td>
+                    <td style="padding: 1px 10px;">5 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">6 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">7</td>
+                    <td style="padding: 1px 10px;">7 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">8</td>
+                    <td style="padding: 1px 10px;">8 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">12 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">16</td>
+                    <td style="padding: 1px 10px;">16 Weeks</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Weekly</td>
+                    <td style="padding: 1px 10px;">24</td>
+                    <td style="padding: 1px 10px;">24 Weeks</td>
+                </tr>
+                
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">1 Month</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">2 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">3 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">4 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">6 Months</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Monthly</td>
+                    <td style="padding: 1px 10px;">12</td>
+                    <td style="padding: 1px 10px;">12 Months</td>
                 </tr>
             </tbody>
         </table>
