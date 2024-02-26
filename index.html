@@ -209,7 +209,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>Authenticate requests to this API's endpoints by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -2054,14 +2054,14 @@ url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-su
 files = {
   'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
   'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\image6375.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\imageB8B8.jpg', 'rb'),
   'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\image6376.jpg', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\imageB8B9.jpg', 'rb'),
   'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\image6386.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\image6387.jpg', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\imageB8BA.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\imageB8BB.jpg', 'rb'),
   'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
@@ -2077,6 +2077,7 @@ payload = {
     "businessExpensePerMonth": 150000000,
     "businessTotalEmployee": 8,
     "businessTotalEmployeeSalary": 40000000,
+    "businessAsset": 5000000000,
     "businessPhysicalLocation": 1,
     "businessAddress": "Jalan Kampung Melayu No. 175",
     "businessProvince": 31,
@@ -2160,6 +2161,10 @@ $response = $client-&gt;post(
             [
                 'name' =&gt; 'businessTotalEmployeeSalary',
                 'contents' =&gt; '40000000'
+            ],
+            [
+                'name' =&gt; 'businessAsset',
+                'contents' =&gt; '5000000000'
             ],
             [
                 'name' =&gt; 'businessPhysicalLocation',
@@ -2267,7 +2272,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\image6375.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageB8B8.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
@@ -2275,7 +2280,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\image6376.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageB8B9.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
@@ -2291,11 +2296,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\image6386.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageB8BA.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\image6387.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageB8BB.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
@@ -2338,6 +2343,7 @@ body.append('businessIncomePerMonth', '300000000');
 body.append('businessExpensePerMonth', '150000000');
 body.append('businessTotalEmployee', '8');
 body.append('businessTotalEmployeeSalary', '40000000');
+body.append('businessAsset', '5000000000');
 body.append('businessPhysicalLocation', '1');
 body.append('businessAddress', 'Jalan Kampung Melayu No. 175');
 body.append('businessProvince', '31');
@@ -2398,6 +2404,7 @@ fetch(url, {
     --form "businessExpensePerMonth=150000000" \
     --form "businessTotalEmployee=8" \
     --form "businessTotalEmployeeSalary=40000000" \
+    --form "businessAsset=5000000000" \
     --form "businessPhysicalLocation=1" \
     --form "businessAddress=Jalan Kampung Melayu No. 175" \
     --form "businessProvince=31" \
@@ -2424,14 +2431,14 @@ fetch(url, {
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
     --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
     --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\image6375.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\imageB8B8.jpg" \
     --form "businessPermit=@C:\Users\Download\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\image6376.jpg" \
+    --form "businessDeed[]=@C:\Users\Download\imageB8B9.jpg" \
     --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
     --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
     --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\image6386.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\image6387.jpg" \
+    --form "businessBankStatement[]=@C:\Users\Download\imageB8BA.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\imageB8BB.jpg" \
     --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
     --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
     --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
@@ -2621,6 +2628,16 @@ fetch(url, {
                data-component="body" hidden>
     <br>
 <p>Fill with total employee salary of borrower business.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessAsset</code></b>&nbsp;&nbsp;<small>number</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="businessAsset"
+               data-endpoint="POSTproject-new-loan-proposal-submission"
+               value="5000000000"
+               data-component="body" hidden>
+    <br>
+<p>Fill with total asset of borrower business.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPhysicalLocation</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
