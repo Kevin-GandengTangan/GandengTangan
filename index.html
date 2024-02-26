@@ -209,7 +209,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -2054,14 +2054,14 @@ url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-su
 files = {
   'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
   'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\imageEC0A.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\image6375.jpg', 'rb'),
   'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\imageEC0B.jpg', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\image6376.jpg', 'rb'),
   'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\imageEC1C.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\imageEC1D.jpg', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\image6386.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\image6387.jpg', 'rb'),
   'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
@@ -2089,8 +2089,8 @@ payload = {
     "loanProposalAmount": 100000000,
     "loanDurationKey": 2,
     "loanDurationValue": 24,
-    "loanRepaymentKey": 2,
-    "loanRepaymentValue": 4,
+    "loanRepaymentDurationKey": 2,
+    "loanRepaymentDurationValue": 4,
     "businessPermitNo": "some SIUP number",
     "bankId": 1012,
     "bankBranch": "Cabang Radio Dalam",
@@ -2210,11 +2210,11 @@ $response = $client-&gt;post(
                 'contents' =&gt; '24'
             ],
             [
-                'name' =&gt; 'loanRepaymentKey',
+                'name' =&gt; 'loanRepaymentDurationKey',
                 'contents' =&gt; '2'
             ],
             [
-                'name' =&gt; 'loanRepaymentValue',
+                'name' =&gt; 'loanRepaymentDurationValue',
                 'contents' =&gt; '4'
             ],
             [
@@ -2267,7 +2267,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageEC0A.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image6375.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
@@ -2275,7 +2275,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageEC0B.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image6376.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
@@ -2291,11 +2291,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageEC1C.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image6386.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageEC1D.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image6387.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
@@ -2350,8 +2350,8 @@ body.append('loanProposalPurpose', 'Modal untuk membuka gerai baru Street Coffee
 body.append('loanProposalAmount', '100000000');
 body.append('loanDurationKey', '2');
 body.append('loanDurationValue', '24');
-body.append('loanRepaymentKey', '2');
-body.append('loanRepaymentValue', '4');
+body.append('loanRepaymentDurationKey', '2');
+body.append('loanRepaymentDurationValue', '4');
 body.append('businessPermitNo', 'some SIUP number');
 body.append('bankId', '1012');
 body.append('bankBranch', 'Cabang Radio Dalam');
@@ -2410,8 +2410,8 @@ fetch(url, {
     --form "loanProposalAmount=100000000" \
     --form "loanDurationKey=2" \
     --form "loanDurationValue=24" \
-    --form "loanRepaymentKey=2" \
-    --form "loanRepaymentValue=4" \
+    --form "loanRepaymentDurationKey=2" \
+    --form "loanRepaymentDurationValue=4" \
     --form "businessPermitNo=some SIUP number" \
     --form "bankId=1012" \
     --form "bankBranch=Cabang Radio Dalam" \
@@ -2424,14 +2424,14 @@ fetch(url, {
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
     --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
     --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\imageEC0A.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\image6375.jpg" \
     --form "businessPermit=@C:\Users\Download\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\imageEC0B.jpg" \
+    --form "businessDeed[]=@C:\Users\Download\image6376.jpg" \
     --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
     --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
     --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\imageEC1C.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\imageEC1D.jpg" \
+    --form "businessBankStatement[]=@C:\Users\Download\image6386.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\image6387.jpg" \
     --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
     --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
     --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
@@ -2480,8 +2480,8 @@ fetch(url, {
         &quot;loanProposalAmount&quot;: &quot;The loan proposal amount field is required.&quot;,
         &quot;loanDurationKey&quot;: &quot;The loan duration key field is required.&quot;,
         &quot;loanDurationValue&quot;: &quot;The loan duration value field is required.&quot;,
-        &quot;loanRepaymentKey&quot;: &quot;The loan repayment key field is required.&quot;,
-        &quot;loanRepaymentValue&quot;: &quot;The loan repayment value field is required.&quot;,
+        &quot;loanRepaymentDurationKey&quot;: &quot;The loan repayment key field is required.&quot;,
+        &quot;loanRepaymentDurationValue&quot;: &quot;The loan repayment value field is required.&quot;,
         &quot;hasAnotherRefinancing&quot;: &quot;The has another refinancing field is required.&quot;
     },
     &quot;errorMesage&quot;: &quot;Invalid input!&quot;
@@ -2776,24 +2776,24 @@ fetch(url, {
 <p><b>[REQUIRED]</b> Fill with loan duration value; see <a href="#loan-duration-master-data">Loan Duration</a> master data.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
-            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentKey</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentDurationKey</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
-               name="loanRepaymentKey"
+               name="loanRepaymentDurationKey"
                data-endpoint="POSTproject-new-loan-proposal-submission"
                value="2"
                data-component="body" hidden>
     <br>
-<p><b>[REQUIRED]</b> Fill with loan repayment key; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
+<p><b>[REQUIRED]</b> Fill with loan repayment duration key; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
-            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentValue</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">loanRepaymentDurationValue</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
-               name="loanRepaymentValue"
+               name="loanRepaymentDurationValue"
                data-endpoint="POSTproject-new-loan-proposal-submission"
                value="4"
                data-component="body" hidden>
     <br>
-<p><b>[REQUIRED]</b> Fill with loan repayment value; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
+<p><b>[REQUIRED]</b> Fill with loan repayment duration value; see <a href="#repayment-method-master-data">Repayment Method</a> master data.</p>
         </p>
                 <p style="margin-top: 20px; margin-bottom: 0px;">
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">businessPermitNo</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
@@ -5038,12 +5038,12 @@ fetch(url, {
 		then these are the available repayment methods for the loan:</p>
 		
 		<ul>
-			<li><b>1x repayment</b>, borrower will repay this loan within 12 weeks, then you may choose Key: 2 and Duration: 12.</li>
-			<li><b>2x repayments</b>, borrower will repay this loan every 6 weeks, then you may choose Key: 2 and Duration: 6.</li>
-			<li><b>3x repayments</b>, borrower will repay this loan every 4 weeks, then you may choose Key: 2 and Duration: 4.</li>
-			<li><b>4x repayments</b>, borrower will repay this loan every 3 weeks, then you may choose Key: 2 and Duration: 3.</li>
-			<li><b>6x repayments</b>, borrower will repay this loan every 2 weeks, then you may choose Key: 2 and Duration: 2.</li>
-			<li><b>12x repayments</b>, borrower will repay this loan every week, then you may choose Key: 2 and Duration: 1.</li>
+			<li><b>1x repayment</b>, borrower will repay this loan within 12 weeks, then you may choose Key: 2 and Value: 12.</li>
+			<li><b>2x repayments</b>, borrower will repay this loan every 6 weeks, then you may choose Key: 2 and Value: 6.</li>
+			<li><b>3x repayments</b>, borrower will repay this loan every 4 weeks, then you may choose Key: 2 and Value: 4.</li>
+			<li><b>4x repayments</b>, borrower will repay this loan every 3 weeks, then you may choose Key: 2 and Value: 3.</li>
+			<li><b>6x repayments</b>, borrower will repay this loan every 2 weeks, then you may choose Key: 2 and Value: 2.</li>
+			<li><b>12x repayments</b>, borrower will repay this loan every week, then you may choose Key: 2 and Value: 1.</li>
 		</ul>
 		
 		<p>NOTE: Repayment Method cannot be greater than Loan Duration.</p>
