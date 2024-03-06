@@ -208,10 +208,9 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <p>This document will help you to connect with GandengTangan Open API.
-Registered partner will be able to login/logout, register borrower,
-submit proposal, check proposal status, check list of available program,
-and send loan proposal agreement. If you need help, please contact
-Gandeng Tangan Development Team for further guidance.</p>
+Registered partner will be able to login/logout, register borrower, request KYC &amp; credit scoring, approve borrower,
+check list of available program, submit loan proposal, send loan proposal agreement, and check proposal status.
+If you need help, please contact GandengTangan Development Team for further guidance.</p>
 <p>This documentation aims to provide all the information you need to work with GandengTangan Open API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
@@ -2854,14 +2853,14 @@ url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-su
 files = {
   'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
   'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\image1C58.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\imageD8B7.jpg', 'rb'),
   'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\image1C59.jpg', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\imageD8B8.jpg', 'rb'),
   'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\image1C5A.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\image1C5B.jpg', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\imageD8B9.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\imageD8BA.jpg', 'rb'),
   'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
@@ -3072,7 +3071,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1C58.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageD8B7.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
@@ -3080,7 +3079,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1C59.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageD8B8.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
@@ -3096,11 +3095,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1C5A.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageD8B9.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1C5B.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageD8BA.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
@@ -3231,14 +3230,14 @@ fetch(url, {
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
     --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
     --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\image1C58.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\imageD8B7.jpg" \
     --form "businessPermit=@C:\Users\Download\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\image1C59.jpg" \
+    --form "businessDeed[]=@C:\Users\Download\imageD8B8.jpg" \
     --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
     --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
     --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\image1C5A.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\image1C5B.jpg" \
+    --form "businessBankStatement[]=@C:\Users\Download\imageD8B9.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\imageD8BA.jpg" \
     --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
     --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
     --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
@@ -4041,7 +4040,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.orderId"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="sed"
+               value="adipisci"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
