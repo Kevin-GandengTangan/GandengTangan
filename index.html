@@ -95,6 +95,15 @@
                                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-new-account-registration">
                         <a href="#endpoints-POSTborrower-new-account-registration">Borrower Registration</a>
                     </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-kyc">
+                        <a href="#endpoints-POSTborrower-request-kyc">Request KYC</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-fdc">
+                        <a href="#endpoints-POSTborrower-request-fdc">Request Credit Scoring (FDC)</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-pefindo">
+                        <a href="#endpoints-POSTborrower-request-pefindo">Request Credit Scoring (Pefindo)</a>
+                    </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-partner-approval">
                         <a href="#endpoints-POSTborrower-partner-approval">Partner Approval</a>
                     </li>
@@ -190,7 +199,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 5 2024</li>
+        <li>Last updated: March 6 2024</li>
     </ul>
 </div>
 
@@ -826,11 +835,11 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/borrower/new-account-registration'
 files = {
-  'selfie': open('C:\xampp\htdocs\rest-laravel\public\img\borrower_selfie.jpg', 'rb'),
-  'ktp': open('C:\xampp\htdocs\rest-laravel\public\img\borrower_ktp.png', 'rb'),
-  'npwp': open('C:\xampp\htdocs\rest-laravel\public\img\borrower_npwp.jpg', 'rb'),
-  'kartuKeluarga': open('C:\xampp\htdocs\rest-laravel\public\img\borrower_kk.pdf', 'rb'),
-  'companionKtp': open('C:\xampp\htdocs\rest-laravel\public\img\companion_ktp.jpg', 'rb')
+  'selfie': open('C:\Users\Download\img\borrower_selfie.jpg', 'rb'),
+  'ktp': open('C:\Users\Download\img\borrower_ktp.png', 'rb'),
+  'npwp': open('C:\Users\Download\img\borrower_npwp.jpg', 'rb'),
+  'kartuKeluarga': open('C:\Users\Download\img\borrower_kk.pdf', 'rb'),
+  'companionKtp': open('C:\Users\Download\img\companion_ktp.jpg', 'rb')
 }
 payload = {
     "borrowerId": "BRW123789",
@@ -1140,23 +1149,23 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'selfie',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\borrower_selfie.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_selfie.jpg', 'r')
             ],
             [
                 'name' =&gt; 'ktp',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\borrower_ktp.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_ktp.png', 'r')
             ],
             [
                 'name' =&gt; 'npwp',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\borrower_npwp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_npwp.jpg', 'r')
             ],
             [
                 'name' =&gt; 'kartuKeluarga',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\borrower_kk.pdf', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_kk.pdf', 'r')
             ],
             [
                 'name' =&gt; 'companionKtp',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\companion_ktp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\companion_ktp.jpg', 'r')
             ],
         ],
     ]
@@ -1309,11 +1318,11 @@ fetch(url, {
     --form "companionSubdistrict=KAYU PUTIH" \
     --form "companionPostalCode=15210" \
     --form "companionKtpId=1234567890123457" \
-    --form "selfie=@C:\xampp\htdocs\rest-laravel\public\img\borrower_selfie.jpg" \
-    --form "ktp=@C:\xampp\htdocs\rest-laravel\public\img\borrower_ktp.png" \
-    --form "npwp=@C:\xampp\htdocs\rest-laravel\public\img\borrower_npwp.jpg" \
-    --form "kartuKeluarga=@C:\xampp\htdocs\rest-laravel\public\img\borrower_kk.pdf" \
-    --form "companionKtp=@C:\xampp\htdocs\rest-laravel\public\img\companion_ktp.jpg" </code></pre></div>
+    --form "selfie=@C:\Users\Download\img\borrower_selfie.jpg" \
+    --form "ktp=@C:\Users\Download\img\borrower_ktp.png" \
+    --form "npwp=@C:\Users\Download\img\borrower_npwp.jpg" \
+    --form "kartuKeluarga=@C:\Users\Download\img\borrower_kk.pdf" \
+    --form "companionKtp=@C:\Users\Download\img\companion_ktp.jpg" </code></pre></div>
 
 </span>
 
@@ -2037,13 +2046,436 @@ fetch(url, {
         </p>
         </form>
 
+            <h2 id="endpoints-POSTborrower-request-kyc">Request KYC</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>GandengTangan partners with Privy to Know Your Customer (KYC). <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
+<aside class="notice">This endpoint lets you request KYC of borrower.</aside>
+
+<span id="example-requests-POSTborrower-request-kyc">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-kyc'
+payload = {
+    "borrowerId": "BRW123789"
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/borrower/request-kyc',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'borrowerId' =&gt; 'BRW123789',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-kyc"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "borrowerId": "BRW123789"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-kyc" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --data "{
+    \"borrowerId\": \"BRW123789\"
+}"
+</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTborrower-request-kyc">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
+    &quot;results&quot;: {}
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTborrower-request-kyc" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTborrower-request-kyc"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTborrower-request-kyc"></code></pre>
+</span>
+<span id="execution-error-POSTborrower-request-kyc" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTborrower-request-kyc"></code></pre>
+</span>
+<form id="form-POSTborrower-request-kyc" data-method="POST"
+      data-path="borrower/request-kyc"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-kyc', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>borrower/request-kyc</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTborrower-request-kyc" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTborrower-request-kyc"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="borrowerId"
+               data-endpoint="POSTborrower-request-kyc"
+               value="BRW123789"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+        </form>
+
+            <h2 id="endpoints-POSTborrower-request-fdc">Request Credit Scoring (FDC)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>GandengTangan will give key points of borrower credit scoring. <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
+<aside class="notice">This endpoint lets you request credit scoring of borrower from FDC.</aside>
+
+<span id="example-requests-POSTborrower-request-fdc">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-fdc'
+payload = {
+    "borrowerId": "BRW123789"
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/borrower/request-fdc',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'borrowerId' =&gt; 'BRW123789',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-fdc"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "borrowerId": "BRW123789"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-fdc" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --data "{
+    \"borrowerId\": \"BRW123789\"
+}"
+</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTborrower-request-fdc">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
+    &quot;results&quot;: {}
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTborrower-request-fdc" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTborrower-request-fdc"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTborrower-request-fdc"></code></pre>
+</span>
+<span id="execution-error-POSTborrower-request-fdc" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTborrower-request-fdc"></code></pre>
+</span>
+<form id="form-POSTborrower-request-fdc" data-method="POST"
+      data-path="borrower/request-fdc"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-fdc', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>borrower/request-fdc</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTborrower-request-fdc" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTborrower-request-fdc"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="borrowerId"
+               data-endpoint="POSTborrower-request-fdc"
+               value="BRW123789"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+        </form>
+
+            <h2 id="endpoints-POSTborrower-request-pefindo">Request Credit Scoring (Pefindo)</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>GandengTangan will give key points of borrower credit scoring. <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
+<aside class="notice">This endpoint lets you request credit scoring of borrower from Pefindo.</aside>
+
+<span id="example-requests-POSTborrower-request-pefindo">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo'
+payload = {
+    "borrowerId": "BRW123789"
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'borrowerId' =&gt; 'BRW123789',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "borrowerId": "BRW123789"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --data "{
+    \"borrowerId\": \"BRW123789\"
+}"
+</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTborrower-request-pefindo">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
+    &quot;results&quot;: {}
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTborrower-request-pefindo" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTborrower-request-pefindo"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTborrower-request-pefindo"></code></pre>
+</span>
+<span id="execution-error-POSTborrower-request-pefindo" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTborrower-request-pefindo"></code></pre>
+</span>
+<form id="form-POSTborrower-request-pefindo" data-method="POST"
+      data-path="borrower/request-pefindo"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-pefindo', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>borrower/request-pefindo</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTborrower-request-pefindo" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTborrower-request-pefindo"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="borrowerId"
+               data-endpoint="POSTborrower-request-pefindo"
+               value="BRW123789"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+        </form>
+
             <h2 id="endpoints-POSTborrower-partner-approval">Partner Approval</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>When a borrower get approval from partner, then GandengTangan will create a BNI Virtual Account number for this borrower.
+<p>When a borrower get approval from partner, GandengTangan will create a BNI Virtual Account for borrower.
 Also, partner will be able to submit borrower's loan proposal.</p>
 <aside class="notice">This endpoint lets you approve your borrower.</aside>
 
@@ -2420,19 +2852,19 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission'
 files = {
-  'businessPhoto1': open('C:\xampp\htdocs\rest-laravel\public\img\business_photo_1.jpg', 'rb'),
-  'businessPhoto2': open('C:\xampp\htdocs\rest-laravel\public\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B09.tmp', 'rb'),
-  'businessPermit': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0A.tmp', 'rb'),
-  'businessRegistered': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessDomicile': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessNPWP': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0B.tmp', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0C.tmp', 'rb'),
-  'businessFinancialStatement': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessCollateralOwnership': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb'),
-  'businessCopyOfCollateralOwnership': open('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'rb')
+  'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
+  'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\image1C58.jpg', 'rb'),
+  'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\image1C59.jpg', 'rb'),
+  'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\image1C5A.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\image1C5B.jpg', 'rb'),
+  'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
 }
 payload = {
     "programId": "PRO87654321",
@@ -2632,55 +3064,55 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto1',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\business_photo_1.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_1.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto2',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\business_photo_2.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_2.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B09.tmp', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1C58.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0A.tmp', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1C59.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDomicile',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessNPWP',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0B.tmp', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1C5A.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0C.tmp', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1C5B.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCollateralOwnership',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCopyOfCollateralOwnership',
-                'contents' =&gt; fopen('C:\xampp\htdocs\rest-laravel\public\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
         ],
     ]
@@ -2797,19 +3229,19 @@ fetch(url, {
     --form "refinancingAmount=50000000" \
     --form "refinancingDueDate=2024-10-15" \
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
-    --form "businessPhoto1=@C:\xampp\htdocs\rest-laravel\public\img\business_photo_1.jpg" \
-    --form "businessPhoto2=@C:\xampp\htdocs\rest-laravel\public\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B09.tmp" \
-    --form "businessPermit=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0A.tmp" \
-    --form "businessRegistered=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessDomicile=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessNPWP=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0B.tmp" \
-    --form "businessOwnerKTP[]=@C:\Users\PT Kredina Jaya Indo\AppData\Local\Temp\php5B0C.tmp" \
-    --form "businessFinancialStatement=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessCollateralOwnership=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" \
-    --form "businessCopyOfCollateralOwnership=@C:\xampp\htdocs\rest-laravel\public\img\image_example.png" </code></pre></div>
+    --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
+    --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\image1C58.jpg" \
+    --form "businessPermit=@C:\Users\Download\img\image_example.png" \
+    --form "businessDeed[]=@C:\Users\Download\image1C59.jpg" \
+    --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
+    --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
+    --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
+    --form "businessBankStatement[]=@C:\Users\Download\image1C5A.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\image1C5B.jpg" \
+    --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
+    --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
+    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
 
 </span>
 
@@ -3609,7 +4041,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.orderId"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="est"
+               value="sed"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
@@ -3619,7 +4051,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.agreementUrl"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="eos"
+               value="ipsa"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
