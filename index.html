@@ -107,6 +107,9 @@
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-partner-approval">
                         <a href="#endpoints-POSTborrower-partner-approval">Partner Approval</a>
                     </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-check-status">
+                        <a href="#endpoints-POSTborrower-check-status">Check Borrower Status</a>
+                    </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-GETprogram-available-list">
                         <a href="#endpoints-GETprogram-available-list">Available Program List</a>
                     </li>
@@ -131,6 +134,9 @@
         		</a>
     		</li>
     		<ul class="tocify-subheader">
+    			<li class="tocify-item level-2">
+    				<a href="#kyc-status-master-data">KYC Status</a>
+    			</li>
     			<li class="tocify-item level-2">
     				<a href="#proposal-status-master-data">Proposal Status</a>
     			</li>
@@ -199,7 +205,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 6 2024</li>
+        <li>Last updated: March 8 2024</li>
     </ul>
 </div>
 
@@ -208,7 +214,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <p>This document will help you to connect with GandengTangan Open API.
-Registered partner will be able to login/logout, register borrower, request KYC &amp; credit scoring, approve borrower,
+Registered partner will be able to login/logout, register borrower, request KYC &amp; credit scoring, approve borrower, check borrower status,
 check list of available program, submit loan proposal, send loan proposal agreement, and check proposal status.
 If you need help, please contact GandengTangan Development Team for further guidance.</p>
 <p>This documentation aims to provide all the information you need to work with GandengTangan Open API.</p>
@@ -220,7 +226,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -2051,7 +2057,7 @@ fetch(url, {
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>GandengTangan partners with Privy to Know Your Customer (KYC). <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
+<p>GandengTangan partners with Privy to Know Your Customer (KYC). See <a href="#kyc-status-master-data">KYC Status</a> master data.</aside></p>
 <aside class="notice">This endpoint lets you request KYC.</aside>
 
 <span id="example-requests-POSTborrower-request-kyc">
@@ -2135,8 +2141,40 @@ fetch(url, {
 
 <code class="language-json">{
     &quot;code&quot;: 200,
-    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
-    &quot;results&quot;: {}
+    &quot;description&quot;: &quot;GandengTangan has registered borrower to Privy, please wait for Privy verification (Estimated 1 hour)!&quot;,
+    &quot;results&quot;: {
+        &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+        &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+        &quot;kycStatus&quot;: &quot;Waiting&quot;
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 409,
+    &quot;description&quot;: &quot;Failed!&quot;,
+    &quot;results&quot;: {
+        &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+        &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+        &quot;kycStatus&quot;: &quot;Waiting&quot;
+    },
+    &quot;errorMesage&quot;: &quot;Borrower has been registered to Privy!&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 409,
+    &quot;description&quot;: &quot;Failed!&quot;,
+    &quot;results&quot;: {},
+    &quot;errorMesage&quot;: &quot;An error occurred when registering borrower to Privy!&quot;
 }</code>
  </pre>
     </span>
@@ -2659,6 +2697,147 @@ fetch(url, {
         </p>
         </form>
 
+            <h2 id="endpoints-POSTborrower-check-status">Check Borrower Status</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>GandengTangan will provide: KYC status, partner approval, and virtual account (VA) of borrower. <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
+<aside class="notice">This endpoint lets you check borrower status.</aside>
+
+<span id="example-requests-POSTborrower-check-status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="python-example">
+    <pre><code class="language-python">import requests
+import json
+
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/check-status'
+payload = {
+    "borrowerId": "BRW123789"
+}
+headers = {
+  'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request('POST', url, headers=headers, json=payload)
+response.json()</code></pre></div>
+
+
+<div class="php-example">
+    <pre><code class="language-php">$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://dev-api-partnership.gandengtangan.com/borrower/check-status',
+    [
+        'headers' =&gt; [
+            'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
+            'Content-Type' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'borrowerId' =&gt; 'BRW123789',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://dev-api-partnership.gandengtangan.com/borrower/check-status"
+);
+
+const headers = {
+    "Authorization": "Bearer {YOUR_ACCESS_TOKEN}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "borrowerId": "BRW123789"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://dev-api-partnership.gandengtangan.com/borrower/check-status" \
+    --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
+    --header "Content-Type: application/json" \
+    --data "{
+    \"borrowerId\": \"BRW123789\"
+}"
+</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTborrower-check-status">
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
+    &quot;results&quot;: {}
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTborrower-check-status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTborrower-check-status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTborrower-check-status"></code></pre>
+</span>
+<span id="execution-error-POSTborrower-check-status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTborrower-check-status"></code></pre>
+</span>
+<form id="form-POSTborrower-check-status" data-method="POST"
+      data-path="borrower/check-status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-check-status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>borrower/check-status</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTborrower-check-status" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTborrower-check-status"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="borrowerId"
+               data-endpoint="POSTborrower-check-status"
+               value="BRW123789"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+        </form>
+
             <h2 id="endpoints-GETprogram-available-list">Available Program List</h2>
 
 <p>
@@ -2853,14 +3032,14 @@ url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-su
 files = {
   'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
   'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\imageD8B7.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\image1543.jpg', 'rb'),
   'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\imageD8B8.jpg', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\image1553.jpg', 'rb'),
   'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\imageD8B9.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\imageD8BA.jpg', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\image1554.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\image1555.jpg', 'rb'),
   'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
   'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
@@ -3071,7 +3250,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageD8B7.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1543.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
@@ -3079,7 +3258,7 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageD8B8.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1553.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
@@ -3095,11 +3274,11 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageD8B9.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1554.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageD8BA.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image1555.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
@@ -3230,14 +3409,14 @@ fetch(url, {
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
     --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
     --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\imageD8B7.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\image1543.jpg" \
     --form "businessPermit=@C:\Users\Download\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\imageD8B8.jpg" \
+    --form "businessDeed[]=@C:\Users\Download\image1553.jpg" \
     --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
     --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
     --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\imageD8B9.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\imageD8BA.jpg" \
+    --form "businessBankStatement[]=@C:\Users\Download\image1554.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\image1555.jpg" \
     --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
     --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
     --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
@@ -4040,7 +4219,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.orderId"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="adipisci"
+               value="nihil"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
@@ -4050,7 +4229,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.agreementUrl"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="ipsa"
+               value="nesciunt"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
@@ -4299,6 +4478,31 @@ fetch(url, {
         
         
         <h1 id="master-data">Master Data</h1>
+        
+        <h2 id="kyc-status-master-data">KYC Status</h2>
+        
+        <table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">Verified</td>
+                    <td style="padding: 1px 10px;">KYC passed.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">Waiting</td>
+                    <td style="padding: 1px 10px;">KYC is on progress. Usually, it takes around 30-60 minutes.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">Rejected</td>
+                    <td style="padding: 1px 10px;">KYC rejected.</td>
+                </tr>
+            </tbody>
+        </table>
         
         <h2 id="proposal-status-master-data">Proposal Status</h2>
         
