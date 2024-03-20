@@ -98,11 +98,11 @@
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-kyc">
                         <a href="#endpoints-POSTborrower-request-kyc">Request KYC</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-fdc">
-                        <a href="#endpoints-POSTborrower-request-fdc">Request Credit Scoring (FDC)</a>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-credit-scoring-1">
+                        <a href="#endpoints-POSTborrower-request-credit-scoring-1">Request Credit Scoring (1)</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-pefindo">
-                        <a href="#endpoints-POSTborrower-request-pefindo">Request Credit Scoring (Pefindo)</a>
+                                    <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-request-credit-scoring-2">
+                        <a href="#endpoints-POSTborrower-request-credit-scoring-2">Request Credit Scoring (2)</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="endpoints-POSTborrower-partner-approval">
                         <a href="#endpoints-POSTborrower-partner-approval">Partner Approval</a>
@@ -136,6 +136,12 @@
     		<ul class="tocify-subheader">
     			<li class="tocify-item level-2">
     				<a href="#kyc-status-master-data">KYC Status</a>
+    			</li>
+    			<li class="tocify-item level-2">
+    				<a href="#reason-credit-scoring-1-master-data">Reason Credit Scoring (1)</a>
+    			</li>
+    			<li class="tocify-item level-2">
+    				<a href="#reason-credit-scoring-2-master-data">Reason Credit Scoring (2)</a>
     			</li>
     			<li class="tocify-item level-2">
     				<a href="#proposal-status-master-data">Proposal Status</a>
@@ -205,7 +211,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 8 2024</li>
+        <li>Last updated: March 20 2024</li>
     </ul>
 </div>
 
@@ -226,7 +232,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -840,11 +846,11 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/borrower/new-account-registration'
 files = {
-  'selfie': open('C:\Users\Download\img\borrower_selfie.jpg', 'rb'),
-  'ktp': open('C:\Users\Download\img\borrower_ktp.png', 'rb'),
-  'npwp': open('C:\Users\Download\img\borrower_npwp.jpg', 'rb'),
-  'kartuKeluarga': open('C:\Users\Download\img\borrower_kk.pdf', 'rb'),
-  'companionKtp': open('C:\Users\Download\img\companion_ktp.jpg', 'rb')
+  'selfie': open('C:\Users\Download\borrower_selfie.jpg', 'rb'),
+  'ktp': open('C:\Users\Download\borrower_ktp.png', 'rb'),
+  'npwp': open('C:\Users\Download\borrower_npwp.jpg', 'rb'),
+  'kartuKeluarga': open('C:\Users\Download\borrower_kk.pdf', 'rb'),
+  'companionKtp': open('C:\Users\Download\companion_ktp.jpg', 'rb')
 }
 payload = {
     "borrowerId": "BRW123789",
@@ -1154,23 +1160,23 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'selfie',
-                'contents' =&gt; fopen('C:\Users\Download\img\borrower_selfie.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\borrower_selfie.jpg', 'r')
             ],
             [
                 'name' =&gt; 'ktp',
-                'contents' =&gt; fopen('C:\Users\Download\img\borrower_ktp.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\borrower_ktp.png', 'r')
             ],
             [
                 'name' =&gt; 'npwp',
-                'contents' =&gt; fopen('C:\Users\Download\img\borrower_npwp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\borrower_npwp.jpg', 'r')
             ],
             [
                 'name' =&gt; 'kartuKeluarga',
-                'contents' =&gt; fopen('C:\Users\Download\img\borrower_kk.pdf', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\borrower_kk.pdf', 'r')
             ],
             [
                 'name' =&gt; 'companionKtp',
-                'contents' =&gt; fopen('C:\Users\Download\img\companion_ktp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\companion_ktp.jpg', 'r')
             ],
         ],
     ]
@@ -1323,11 +1329,11 @@ fetch(url, {
     --form "companionSubdistrict=KAYU PUTIH" \
     --form "companionPostalCode=15210" \
     --form "companionKtpId=1234567890123457" \
-    --form "selfie=@C:\Users\Download\img\borrower_selfie.jpg" \
-    --form "ktp=@C:\Users\Download\img\borrower_ktp.png" \
-    --form "npwp=@C:\Users\Download\img\borrower_npwp.jpg" \
-    --form "kartuKeluarga=@C:\Users\Download\img\borrower_kk.pdf" \
-    --form "companionKtp=@C:\Users\Download\img\companion_ktp.jpg" </code></pre></div>
+    --form "selfie=@C:\Users\Download\borrower_selfie.jpg" \
+    --form "ktp=@C:\Users\Download\borrower_ktp.png" \
+    --form "npwp=@C:\Users\Download\borrower_npwp.jpg" \
+    --form "kartuKeluarga=@C:\Users\Download\borrower_kk.pdf" \
+    --form "companionKtp=@C:\Users\Download\companion_ktp.jpg" </code></pre></div>
 
 </span>
 
@@ -2224,16 +2230,17 @@ fetch(url, {
         </p>
         </form>
 
-            <h2 id="endpoints-POSTborrower-request-fdc">Request Credit Scoring (FDC)</h2>
+            <h2 id="endpoints-POSTborrower-request-credit-scoring-1">Request Credit Scoring (1)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>GandengTangan will give key points of borrower credit scoring. <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
-<aside class="notice">This endpoint lets you request credit scoring of borrower from FDC.</aside>
+<p>GandengTangan will give key points of borrower credit scoring.
+<br><b style="color:Red;">IMPORTANT: According to OJK regulations, if borrower's total active platform(s) are more than or equal to 3 (three) then partner will not be able to submit borrower's loan proposal!</b></p>
+<aside class="notice">This endpoint lets you request credit scoring of borrower.</aside>
 
-<span id="example-requests-POSTborrower-request-fdc">
+<span id="example-requests-POSTborrower-request-credit-scoring-1">
 <blockquote>Example request:</blockquote>
 
 
@@ -2241,9 +2248,10 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-fdc'
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-1'
 payload = {
-    "borrowerId": "BRW123789"
+    "borrowerId": "BRW123789",
+    "reasonId": 1
 }
 headers = {
   'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
@@ -2257,7 +2265,7 @@ response.json()</code></pre></div>
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://dev-api-partnership.gandengtangan.com/borrower/request-fdc',
+    'http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-1',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
@@ -2265,6 +2273,7 @@ $response = $client-&gt;post(
         ],
         'json' =&gt; [
             'borrowerId' =&gt; 'BRW123789',
+            'reasonId' =&gt; 1,
         ],
     ]
 );
@@ -2274,7 +2283,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://dev-api-partnership.gandengtangan.com/borrower/request-fdc"
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-1"
 );
 
 const headers = {
@@ -2284,7 +2293,8 @@ const headers = {
 };
 
 let body = {
-    "borrowerId": "BRW123789"
+    "borrowerId": "BRW123789",
+    "reasonId": 1
 };
 
 fetch(url, {
@@ -2296,17 +2306,18 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://dev-api-partnership.gandengtangan.com/borrower/request-fdc" \
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-1" \
     --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --data "{
-    \"borrowerId\": \"BRW123789\"
+    \"borrowerId\": \"BRW123789\",
+    \"reasonId\": 1
 }"
 </code></pre></div>
 
 </span>
 
-<span id="example-responses-POSTborrower-request-fdc">
+<span id="example-responses-POSTborrower-request-credit-scoring-1">
             <blockquote>
             <p>Example response (200, success):</p>
         </blockquote>
@@ -2314,42 +2325,113 @@ fetch(url, {
 
 <code class="language-json">{
     &quot;code&quot;: 200,
-    &quot;description&quot;: &quot;DEVELOPMENT ON PROGRESS!&quot;,
-    &quot;results&quot;: {}
+    &quot;description&quot;: &quot;Borrower credit scoring (1)!&quot;,
+    &quot;results&quot;: {
+        &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+        &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+        &quot;fullname&quot;: &quot;Will Myers&quot;,
+        &quot;ktpId&quot;: &quot;1234567890123456&quot;,
+        &quot;creditScoring&quot;: {
+            &quot;info&quot;: {
+                &quot;credit_scoring_status&quot;: &quot;found&quot;,
+                &quot;total_active_platform&quot;: 0
+            },
+            &quot;loan&quot;: [
+                {
+                    &quot;no&quot;: 1,
+                    &quot;user_type&quot;: &quot;Personal&quot;,
+                    &quot;name&quot;: &quot;Will Myers&quot;,
+                    &quot;nik&quot;: &quot;1234567890123456&quot;,
+                    &quot;funding_amount&quot;: 5000000,
+                    &quot;outstanding&quot;: 3000000,
+                    &quot;transfer_date&quot;: &quot;2023-05-01&quot;,
+                    &quot;due_date&quot;: &quot;2023-08-01&quot;,
+                    &quot;last_dpd&quot;: 62,
+                    &quot;max_dpd&quot;: 95,
+                    &quot;loan_status&quot;: &quot;Outstanding&quot;,
+                    &quot;loan_quality&quot;: &quot;Substandart&quot;,
+                    &quot;loan_type&quot;: &quot;Multipurpose&quot;,
+                    &quot;loan_sub_type&quot;: &quot;Paylater/Line Of Credit&quot;
+                },
+                {
+                    &quot;no&quot;: 2,
+                    &quot;user_type&quot;: &quot;Personal&quot;,
+                    &quot;name&quot;: &quot;Will Myers&quot;,
+                    &quot;nik&quot;: &quot;1234567890123456&quot;,
+                    &quot;funding_amount&quot;: 170000000,
+                    &quot;outstanding&quot;: 0,
+                    &quot;transfer_date&quot;: &quot;2022-01-05&quot;,
+                    &quot;due_date&quot;: &quot;2022-07-05&quot;,
+                    &quot;last_dpd&quot;: 0,
+                    &quot;max_dpd&quot;: 0,
+                    &quot;loan_status&quot;: &quot;Paid&quot;,
+                    &quot;loan_quality&quot;: &quot;Good Debt&quot;,
+                    &quot;loan_type&quot;: &quot;Productive&quot;,
+                    &quot;loan_sub_type&quot;: &quot;Invoice Financing&quot;
+                }
+            ]
+        }
+    }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 400,
+    &quot;description&quot;: &quot;Fail to request credit scoring (1)!&quot;,
+    &quot;results&quot;: {
+        &quot;reasonId&quot;: &quot;The reason id field is required.&quot;
+    },
+    &quot;errorMesage&quot;: &quot;Invalid input!&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 409,
+    &quot;description&quot;: &quot;Failed!&quot;,
+    &quot;results&quot;: {},
+    &quot;errorMesage&quot;: &quot;Failed to get credit scoring (1) of borrower!!&quot;
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTborrower-request-fdc" hidden>
+<span id="execution-results-POSTborrower-request-credit-scoring-1" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTborrower-request-fdc"></span>:
+                id="execution-response-status-POSTborrower-request-credit-scoring-1"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTborrower-request-fdc"></code></pre>
+    <pre class="json"><code id="execution-response-content-POSTborrower-request-credit-scoring-1"></code></pre>
 </span>
-<span id="execution-error-POSTborrower-request-fdc" hidden>
+<span id="execution-error-POSTborrower-request-credit-scoring-1" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTborrower-request-fdc"></code></pre>
+    <pre><code id="execution-error-message-POSTborrower-request-credit-scoring-1"></code></pre>
 </span>
-<form id="form-POSTborrower-request-fdc" data-method="POST"
-      data-path="borrower/request-fdc"
+<form id="form-POSTborrower-request-credit-scoring-1" data-method="POST"
+      data-path="borrower/request-credit-scoring-1"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-fdc', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-credit-scoring-1', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>borrower/request-fdc</code></b>
+            <b><code>borrower/request-credit-scoring-1</code></b>
         </p>
                 <p>
-            <label id="auth-POSTborrower-request-fdc" hidden>Authorization header:
+            <label id="auth-POSTborrower-request-credit-scoring-1" hidden>Authorization header:
                 <b><code>Bearer </code></b><input type="text"
                                                                 name="Authorization"
                                                                 data-prefix="Bearer "
-                                                                data-endpoint="POSTborrower-request-fdc"
+                                                                data-endpoint="POSTborrower-request-credit-scoring-1"
                                                                 data-component="header"></label>
         </p>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
@@ -2357,24 +2439,34 @@ fetch(url, {
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="borrowerId"
-               data-endpoint="POSTborrower-request-fdc"
+               data-endpoint="POSTborrower-request-credit-scoring-1"
                value="BRW123789"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">reasonId</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="reasonId"
+               data-endpoint="POSTborrower-request-credit-scoring-1"
+               value="1"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your reason ID; see <a href="#reason-credit-scoring-1-master-data">Reason Credit Scoring (1)</a> master data.</p>
         </p>
         </form>
 
-            <h2 id="endpoints-POSTborrower-request-pefindo">Request Credit Scoring (Pefindo)</h2>
+            <h2 id="endpoints-POSTborrower-request-credit-scoring-2">Request Credit Scoring (2)</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
 <p>GandengTangan will give key points of borrower credit scoring. <br><b>THIS ENDPOINT IS STILL UNDER DEVELOPMENT.</b></p>
-<aside class="notice">This endpoint lets you request credit scoring of borrower from Pefindo.</aside>
+<aside class="notice">This endpoint lets you request credit scoring of borrower.</aside>
 
-<span id="example-requests-POSTborrower-request-pefindo">
+<span id="example-requests-POSTborrower-request-credit-scoring-2">
 <blockquote>Example request:</blockquote>
 
 
@@ -2382,9 +2474,10 @@ fetch(url, {
     <pre><code class="language-python">import requests
 import json
 
-url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo'
+url = 'http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-2'
 payload = {
-    "borrowerId": "BRW123789"
+    "borrowerId": "BRW123789",
+    "reasonId": 1
 }
 headers = {
   'Authorization': 'Bearer {YOUR_ACCESS_TOKEN}',
@@ -2398,7 +2491,7 @@ response.json()</code></pre></div>
 <div class="php-example">
     <pre><code class="language-php">$client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo',
+    'http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-2',
     [
         'headers' =&gt; [
             'Authorization' =&gt; 'Bearer {YOUR_ACCESS_TOKEN}',
@@ -2406,6 +2499,7 @@ $response = $client-&gt;post(
         ],
         'json' =&gt; [
             'borrowerId' =&gt; 'BRW123789',
+            'reasonId' =&gt; 1,
         ],
     ]
 );
@@ -2415,7 +2509,7 @@ print_r(json_decode((string) $body));</code></pre></div>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo"
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-2"
 );
 
 const headers = {
@@ -2425,7 +2519,8 @@ const headers = {
 };
 
 let body = {
-    "borrowerId": "BRW123789"
+    "borrowerId": "BRW123789",
+    "reasonId": 1
 };
 
 fetch(url, {
@@ -2437,17 +2532,18 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://dev-api-partnership.gandengtangan.com/borrower/request-pefindo" \
+    "http://dev-api-partnership.gandengtangan.com/borrower/request-credit-scoring-2" \
     --header "Authorization: Bearer {YOUR_ACCESS_TOKEN}" \
     --header "Content-Type: application/json" \
     --data "{
-    \"borrowerId\": \"BRW123789\"
+    \"borrowerId\": \"BRW123789\",
+    \"reasonId\": 1
 }"
 </code></pre></div>
 
 </span>
 
-<span id="example-responses-POSTborrower-request-pefindo">
+<span id="example-responses-POSTborrower-request-credit-scoring-2">
             <blockquote>
             <p>Example response (200, success):</p>
         </blockquote>
@@ -2460,37 +2556,37 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTborrower-request-pefindo" hidden>
+<span id="execution-results-POSTborrower-request-credit-scoring-2" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTborrower-request-pefindo"></span>:
+                id="execution-response-status-POSTborrower-request-credit-scoring-2"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTborrower-request-pefindo"></code></pre>
+    <pre class="json"><code id="execution-response-content-POSTborrower-request-credit-scoring-2"></code></pre>
 </span>
-<span id="execution-error-POSTborrower-request-pefindo" hidden>
+<span id="execution-error-POSTborrower-request-credit-scoring-2" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTborrower-request-pefindo"></code></pre>
+    <pre><code id="execution-error-message-POSTborrower-request-credit-scoring-2"></code></pre>
 </span>
-<form id="form-POSTborrower-request-pefindo" data-method="POST"
-      data-path="borrower/request-pefindo"
+<form id="form-POSTborrower-request-credit-scoring-2" data-method="POST"
+      data-path="borrower/request-credit-scoring-2"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Authorization":"Bearer {YOUR_ACCESS_TOKEN}","Content-Type":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-pefindo', this);">
+      onsubmit="event.preventDefault(); executeTryOut('POSTborrower-request-credit-scoring-2', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
             </h3>
             <p>
             <small class="badge badge-black">POST</small>
-            <b><code>borrower/request-pefindo</code></b>
+            <b><code>borrower/request-credit-scoring-2</code></b>
         </p>
                 <p>
-            <label id="auth-POSTborrower-request-pefindo" hidden>Authorization header:
+            <label id="auth-POSTborrower-request-credit-scoring-2" hidden>Authorization header:
                 <b><code>Bearer </code></b><input type="text"
                                                                 name="Authorization"
                                                                 data-prefix="Bearer "
-                                                                data-endpoint="POSTborrower-request-pefindo"
+                                                                data-endpoint="POSTborrower-request-credit-scoring-2"
                                                                 data-component="header"></label>
         </p>
                         <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
@@ -2498,11 +2594,21 @@ fetch(url, {
             <b><code style="font-size: 16px; color: #000077; padding: 0px;">borrowerId</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="borrowerId"
-               data-endpoint="POSTborrower-request-pefindo"
+               data-endpoint="POSTborrower-request-credit-scoring-2"
                value="BRW123789"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your borrower ID.</p>
+        </p>
+                <p style="margin-top: 20px; margin-bottom: 0px;">
+            <b><code style="font-size: 16px; color: #000077; padding: 0px;">reasonId</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="reasonId"
+               data-endpoint="POSTborrower-request-credit-scoring-2"
+               value="1"
+               data-component="body" hidden>
+    <br>
+<p><b>[REQUIRED]</b> Fill with your reason ID; see <a href="#reason-credit-scoring-2-master-data">Reason Credit Scoring (2)</a> master data.</p>
         </p>
         </form>
 
@@ -3030,19 +3136,19 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission'
 files = {
-  'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
-  'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\image1543.jpg', 'rb'),
-  'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\image1553.jpg', 'rb'),
-  'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\image1554.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\image1555.jpg', 'rb'),
-  'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
-  'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
+  'businessPhoto1': open('C:\Users\Download\business_photo_1.jpg', 'rb'),
+  'businessPhoto2': open('C:\Users\Download\business_photo_2.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\imageF5A0.jpg', 'rb'),
+  'businessPermit': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\imageF5A1.jpg', 'rb'),
+  'businessRegistered': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessDomicile': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessNPWP': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\imageF5A2.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\imageF5B3.jpg', 'rb'),
+  'businessFinancialStatement': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessCollateralOwnership': open('C:\Users\Download\image_example.png', 'rb'),
+  'businessCopyOfCollateralOwnership': open('C:\Users\Download\image_example.png', 'rb')
 }
 payload = {
     "programId": "PRO87654321",
@@ -3242,55 +3348,55 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto1',
-                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_1.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\business_photo_1.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto2',
-                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_2.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\business_photo_2.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1543.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageF5A0.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1553.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageF5A1.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDomicile',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessNPWP',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1554.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageF5A2.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\image1555.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\imageF5B3.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCollateralOwnership',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCopyOfCollateralOwnership',
-                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
             ],
         ],
     ]
@@ -3407,19 +3513,19 @@ fetch(url, {
     --form "refinancingAmount=50000000" \
     --form "refinancingDueDate=2024-10-15" \
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
-    --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
-    --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\image1543.jpg" \
-    --form "businessPermit=@C:\Users\Download\img\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\image1553.jpg" \
-    --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
-    --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
-    --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\image1554.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\image1555.jpg" \
-    --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
-    --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
-    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
+    --form "businessPhoto1=@C:\Users\Download\business_photo_1.jpg" \
+    --form "businessPhoto2=@C:\Users\Download\business_photo_2.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\imageF5A0.jpg" \
+    --form "businessPermit=@C:\Users\Download\image_example.png" \
+    --form "businessDeed[]=@C:\Users\Download\imageF5A1.jpg" \
+    --form "businessRegistered=@C:\Users\Download\image_example.png" \
+    --form "businessDomicile=@C:\Users\Download\image_example.png" \
+    --form "businessNPWP=@C:\Users\Download\image_example.png" \
+    --form "businessBankStatement[]=@C:\Users\Download\imageF5A2.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\imageF5B3.jpg" \
+    --form "businessFinancialStatement=@C:\Users\Download\image_example.png" \
+    --form "businessCollateralOwnership=@C:\Users\Download\image_example.png" \
+    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\image_example.png" </code></pre></div>
 
 </span>
 
@@ -3470,6 +3576,18 @@ fetch(url, {
         &quot;hasAnotherRefinancing&quot;: &quot;The has another refinancing field is required.&quot;
     },
     &quot;errorMesage&quot;: &quot;Invalid input!&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (409, failed):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 409,
+    &quot;description&quot;: &quot;Failed!&quot;,
+    &quot;results&quot;: {},
+    &quot;errorMesage&quot;: &quot;Cannot submit borrower's loan proposal. Borrower's total active platform(s) are more than or equal to 3 (three)!&quot;
 }</code>
  </pre>
     </span>
@@ -4219,7 +4337,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.orderId"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="nihil"
+               value="ut"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
@@ -4229,7 +4347,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.agreementUrl"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="nesciunt"
+               value="qui"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
@@ -4500,6 +4618,56 @@ fetch(url, {
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">Rejected</td>
                     <td style="padding: 1px 10px;">KYC rejected.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2 id="reason-credit-scoring-1-master-data">Reason Credit Scoring (1)</h2>
+        
+        <table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>ID</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">New Borrower</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Existing Borrower</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2 id="reason-credit-scoring-2-master-data">Reason Credit Scoring (2)</h2>
+        
+        <table>
+            <thead>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <th>ID</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+            	<tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">1</td>
+                    <td style="padding: 1px 10px;">Something 1</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">2</td>
+                    <td style="padding: 1px 10px;">Something 2</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">3</td>
+                    <td style="padding: 1px 10px;">Something 3</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">4</td>
+                    <td style="padding: 1px 10px;">Something 4</td>
                 </tr>
             </tbody>
         </table>
