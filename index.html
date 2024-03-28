@@ -211,7 +211,7 @@
                             <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
                     </ul>
         <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 20 2024</li>
+        <li>Last updated: March 28 2024</li>
     </ul>
 </div>
 
@@ -232,7 +232,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 <pre><code class="language-yaml">http://dev-api-partnership.gandengtangan.com/</code></pre>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
+<p>Authenticate requests to this API's endpoints by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_ACCESS_TOKEN}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve {YOUR_ACCESS_TOKEN} by <b><a href="#account-authorization-POSTuser-login">login to application</a></b>.
 See how to login in the <b><a href="#account-authorization">Account Authorization</a></b> menu.</p>
@@ -846,11 +846,11 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/borrower/new-account-registration'
 files = {
-  'selfie': open('C:\Users\Download\borrower_selfie.jpg', 'rb'),
-  'ktp': open('C:\Users\Download\borrower_ktp.png', 'rb'),
-  'npwp': open('C:\Users\Download\borrower_npwp.jpg', 'rb'),
-  'kartuKeluarga': open('C:\Users\Download\borrower_kk.pdf', 'rb'),
-  'companionKtp': open('C:\Users\Download\companion_ktp.jpg', 'rb')
+  'selfie': open('C:\Users\Download\img\borrower_selfie.jpg', 'rb'),
+  'ktp': open('C:\Users\Download\img\borrower_ktp.png', 'rb'),
+  'npwp': open('C:\Users\Download\img\borrower_npwp.jpg', 'rb'),
+  'kartuKeluarga': open('C:\Users\Download\img\borrower_kk.pdf', 'rb'),
+  'companionKtp': open('C:\Users\Download\img\companion_ktp.jpg', 'rb')
 }
 payload = {
     "borrowerId": "BRW123789",
@@ -1160,23 +1160,23 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'selfie',
-                'contents' =&gt; fopen('C:\Users\Download\borrower_selfie.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_selfie.jpg', 'r')
             ],
             [
                 'name' =&gt; 'ktp',
-                'contents' =&gt; fopen('C:\Users\Download\borrower_ktp.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_ktp.png', 'r')
             ],
             [
                 'name' =&gt; 'npwp',
-                'contents' =&gt; fopen('C:\Users\Download\borrower_npwp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_npwp.jpg', 'r')
             ],
             [
                 'name' =&gt; 'kartuKeluarga',
-                'contents' =&gt; fopen('C:\Users\Download\borrower_kk.pdf', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\borrower_kk.pdf', 'r')
             ],
             [
                 'name' =&gt; 'companionKtp',
-                'contents' =&gt; fopen('C:\Users\Download\companion_ktp.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\companion_ktp.jpg', 'r')
             ],
         ],
     ]
@@ -1329,11 +1329,11 @@ fetch(url, {
     --form "companionSubdistrict=KAYU PUTIH" \
     --form "companionPostalCode=15210" \
     --form "companionKtpId=1234567890123457" \
-    --form "selfie=@C:\Users\Download\borrower_selfie.jpg" \
-    --form "ktp=@C:\Users\Download\borrower_ktp.png" \
-    --form "npwp=@C:\Users\Download\borrower_npwp.jpg" \
-    --form "kartuKeluarga=@C:\Users\Download\borrower_kk.pdf" \
-    --form "companionKtp=@C:\Users\Download\companion_ktp.jpg" </code></pre></div>
+    --form "selfie=@C:\Users\Download\img\borrower_selfie.jpg" \
+    --form "ktp=@C:\Users\Download\img\borrower_ktp.png" \
+    --form "npwp=@C:\Users\Download\img\borrower_npwp.jpg" \
+    --form "kartuKeluarga=@C:\Users\Download\img\borrower_kk.pdf" \
+    --form "companionKtp=@C:\Users\Download\img\companion_ktp.jpg" </code></pre></div>
 
 </span>
 
@@ -2334,7 +2334,7 @@ fetch(url, {
         &quot;creditScoring&quot;: {
             &quot;info&quot;: {
                 &quot;credit_scoring_status&quot;: &quot;found&quot;,
-                &quot;total_active_platform&quot;: 0
+                &quot;total_active_platform&quot;: 1
             },
             &quot;loan&quot;: [
                 {
@@ -2618,8 +2618,9 @@ fetch(url, {
 <small class="badge badge-darkred">requires authentication</small>
 </p>
 
-<p>When a borrower get approval from partner, GandengTangan will create a BNI Virtual Account for borrower.
-Also, partner will be able to submit borrower's loan proposal.</p>
+<p>When borrower has been approved by partner, GandengTangan will create a BNI Virtual Account for borrower.
+Also, partner will be able to submit borrower's loan proposal.<br>
+If borrower is rejected by partner, then partner will not be able to submit borrower's loan proposal.</p>
 <aside class="notice">This endpoint lets you approve your borrower.</aside>
 
 <span id="example-requests-POSTborrower-partner-approval">
@@ -2707,31 +2708,44 @@ fetch(url, {
 
 <code class="language-json">{
     &quot;code&quot;: 200,
-    &quot;description&quot;: &quot;Borrower VA has been created successfully!&quot;,
+    &quot;description&quot;: &quot;Borrower has been approved by partner. Borrower VA has been created successfully!&quot;,
     &quot;results&quot;: {
         &quot;borrowerId&quot;: &quot;BRW123789&quot;,
         &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
-        &quot;fullname&quot;: &quot;Will Myers&quot;,
-        &quot;ktpId&quot;: &quot;1234567890123456&quot;,
-        &quot;phoneNumber&quot;: &quot;081234567890&quot;,
+        &quot;approval&quot;: 1,
         &quot;virtualAccount&quot;: &quot;9881007822122392&quot;
     }
 }</code>
  </pre>
             <blockquote>
-            <p>Example response (409, failed):</p>
+            <p>Example response (200, borrower already has a Virtual Account):</p>
         </blockquote>
                 <pre>
 
 <code class="language-json">{
-    &quot;code&quot;: 409,
-    &quot;description&quot;: &quot;Failed!&quot;,
+ &quot;code&quot;: 200,
+ &quot;description&quot;: &quot;Borrower has been approved by partner!&quot;,
+ &quot;results&quot;: {
+     &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+     &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+     &quot;approval&quot;: 1,
+     &quot;virtualAccount&quot;: &quot;9881007822122392&quot;
+ },
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (200, success):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;code&quot;: 200,
+    &quot;description&quot;: &quot;Borrower has been rejected by partner!&quot;,
     &quot;results&quot;: {
-        &quot;borrowerId&quot;: &quot;XYZ-123&quot;,
-        &quot;borrowerIdGT&quot;: &quot;BRW709548189105&quot;,
-        &quot;virtualAccount&quot;: &quot;9881007822122394&quot;
-    },
-    &quot;errorMesage&quot;: &quot;Cannot create a new VA because borrower already has one!&quot;
+        &quot;borrowerId&quot;: &quot;BRW123789&quot;,
+        &quot;borrowerIdGT&quot;: &quot;BRW113355779900&quot;,
+        &quot;approval&quot;: 0
+    }
 }</code>
  </pre>
             <blockquote>
@@ -2743,7 +2757,7 @@ fetch(url, {
     &quot;code&quot;: 409,
     &quot;description&quot;: &quot;Failed!&quot;,
     &quot;results&quot;: {},
-    &quot;errorMesage&quot;: &quot;Please retry after 30 minutes!&quot;
+    &quot;errorMesage&quot;: &quot;Cannot create borrower VA. Please try again after 30 minutes or contact GT team!&quot;
 }</code>
  </pre>
     </span>
@@ -3136,19 +3150,19 @@ import json
 
 url = 'http://dev-api-partnership.gandengtangan.com/project/new-loan-proposal-submission'
 files = {
-  'businessPhoto1': open('C:\Users\Download\business_photo_1.jpg', 'rb'),
-  'businessPhoto2': open('C:\Users\Download\business_photo_2.jpg', 'rb'),
-  'businessPhoto[]': open('C:\Users\Download\imageF5A0.jpg', 'rb'),
-  'businessPermit': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessDeed[]': open('C:\Users\Download\imageF5A1.jpg', 'rb'),
-  'businessRegistered': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessDomicile': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessNPWP': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessBankStatement[]': open('C:\Users\Download\imageF5A2.jpg', 'rb'),
-  'businessOwnerKTP[]': open('C:\Users\Download\imageF5B3.jpg', 'rb'),
-  'businessFinancialStatement': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessCollateralOwnership': open('C:\Users\Download\image_example.png', 'rb'),
-  'businessCopyOfCollateralOwnership': open('C:\Users\Download\image_example.png', 'rb')
+  'businessPhoto1': open('C:\Users\Download\img\business_photo_1.jpg', 'rb'),
+  'businessPhoto2': open('C:\Users\Download\img\business_photo_2.jpg', 'rb'),
+  'businessPhoto[]': open('C:\Users\Download\img6784.jpg', 'rb'),
+  'businessPermit': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDeed[]': open('C:\Users\Download\img6785.jpg', 'rb'),
+  'businessRegistered': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessDomicile': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessNPWP': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessBankStatement[]': open('C:\Users\Download\img6786.jpg', 'rb'),
+  'businessOwnerKTP[]': open('C:\Users\Download\img6787.jpg', 'rb'),
+  'businessFinancialStatement': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb'),
+  'businessCopyOfCollateralOwnership': open('C:\Users\Download\img\image_example.png', 'rb')
 }
 payload = {
     "programId": "PRO87654321",
@@ -3348,55 +3362,55 @@ $response = $client-&gt;post(
             ],
             [
                 'name' =&gt; 'businessPhoto1',
-                'contents' =&gt; fopen('C:\Users\Download\business_photo_1.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_1.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto2',
-                'contents' =&gt; fopen('C:\Users\Download\business_photo_2.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\business_photo_2.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPhoto[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageF5A0.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img6784.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessPermit',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDeed[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageF5A1.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img6785.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessRegistered',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessDomicile',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessNPWP',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessBankStatement[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageF5A2.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img6786.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessOwnerKTP[]',
-                'contents' =&gt; fopen('C:\Users\Download\imageF5B3.jpg', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img6787.jpg', 'r')
             ],
             [
                 'name' =&gt; 'businessFinancialStatement',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCollateralOwnership',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
             [
                 'name' =&gt; 'businessCopyOfCollateralOwnership',
-                'contents' =&gt; fopen('C:\Users\Download\image_example.png', 'r')
+                'contents' =&gt; fopen('C:\Users\Download\img\image_example.png', 'r')
             ],
         ],
     ]
@@ -3513,19 +3527,19 @@ fetch(url, {
     --form "refinancingAmount=50000000" \
     --form "refinancingDueDate=2024-10-15" \
     --form "supplementaryDocumentUrl=https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf" \
-    --form "businessPhoto1=@C:\Users\Download\business_photo_1.jpg" \
-    --form "businessPhoto2=@C:\Users\Download\business_photo_2.jpg" \
-    --form "businessPhoto[]=@C:\Users\Download\imageF5A0.jpg" \
-    --form "businessPermit=@C:\Users\Download\image_example.png" \
-    --form "businessDeed[]=@C:\Users\Download\imageF5A1.jpg" \
-    --form "businessRegistered=@C:\Users\Download\image_example.png" \
-    --form "businessDomicile=@C:\Users\Download\image_example.png" \
-    --form "businessNPWP=@C:\Users\Download\image_example.png" \
-    --form "businessBankStatement[]=@C:\Users\Download\imageF5A2.jpg" \
-    --form "businessOwnerKTP[]=@C:\Users\Download\imageF5B3.jpg" \
-    --form "businessFinancialStatement=@C:\Users\Download\image_example.png" \
-    --form "businessCollateralOwnership=@C:\Users\Download\image_example.png" \
-    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\image_example.png" </code></pre></div>
+    --form "businessPhoto1=@C:\Users\Download\img\business_photo_1.jpg" \
+    --form "businessPhoto2=@C:\Users\Download\img\business_photo_2.jpg" \
+    --form "businessPhoto[]=@C:\Users\Download\img6784.jpg" \
+    --form "businessPermit=@C:\Users\Download\img\image_example.png" \
+    --form "businessDeed[]=@C:\Users\Download\img6785.jpg" \
+    --form "businessRegistered=@C:\Users\Download\img\image_example.png" \
+    --form "businessDomicile=@C:\Users\Download\img\image_example.png" \
+    --form "businessNPWP=@C:\Users\Download\img\image_example.png" \
+    --form "businessBankStatement[]=@C:\Users\Download\img6786.jpg" \
+    --form "businessOwnerKTP[]=@C:\Users\Download\img6787.jpg" \
+    --form "businessFinancialStatement=@C:\Users\Download\img\image_example.png" \
+    --form "businessCollateralOwnership=@C:\Users\Download\img\image_example.png" \
+    --form "businessCopyOfCollateralOwnership=@C:\Users\Download\img\image_example.png" </code></pre></div>
 
 </span>
 
@@ -4337,7 +4351,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.orderId"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="ut"
+               value="est"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with your proposal order ID.</p>
@@ -4347,7 +4361,7 @@ fetch(url, {
                 <input type="text"
                name="proposals.0.agreementUrl"
                data-endpoint="POSTproject-loan-proposal-agreement-url"
-               value="qui"
+               value="placeat"
                data-component="body" hidden>
     <br>
 <p><b>[REQUIRED]</b> Fill with proposal agreement URL; must be an active and downloadable URL.</p>
@@ -4655,19 +4669,27 @@ fetch(url, {
             <tbody>
             	<tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">1</td>
-                    <td style="padding: 1px 10px;">Something 1</td>
+                    <td style="padding: 1px 10px;">Providing Facilities</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">2</td>
-                    <td style="padding: 1px 10px;">Something 2</td>
+                    <td style="padding: 1px 10px;">Operational Risk Management</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">3</td>
-                    <td style="padding: 1px 10px;">Something 3</td>
+                    <td style="padding: 1px 10px;">Fulfil Regulation Requirements</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #ccc;">
                     <td style="padding: 1px 10px;">4</td>
-                    <td style="padding: 1px 10px;">Something 4</td>
+                    <td style="padding: 1px 10px;">Third Party Verification</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">5</td>
+                    <td style="padding: 1px 10px;">Monitoring Or Verification Of Employee</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc;">
+                    <td style="padding: 1px 10px;">6</td>
+                    <td style="padding: 1px 10px;">Monitoring Debtor Or Customer</td>
                 </tr>
             </tbody>
         </table>
